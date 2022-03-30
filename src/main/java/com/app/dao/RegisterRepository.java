@@ -1,10 +1,10 @@
-package com.app.repo;
+package com.app.dao;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.app.pojo.Register;
+import com.app.pojos.Register;
 
 public interface RegisterRepository extends JpaRepository<Register, Integer>{
 	Optional<Register> findByEmailAndPassword(String email, String password);

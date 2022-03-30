@@ -1,4 +1,4 @@
-package com.app.pojo;
+package com.app.pojos;
 
 public enum Gender {
 	Male, Female, Other

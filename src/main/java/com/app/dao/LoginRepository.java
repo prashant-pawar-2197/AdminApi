@@ -1,8 +1,8 @@
-package com.app.repo;
+package com.app.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.app.pojo.Login;
+import com.app.pojos.Login;
 
 public interface LoginRepository extends JpaRepository<Login, Integer>{
 	

@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.pojo.Login;
-import com.app.pojo.Register;
-import com.app.repo.RegisterRepository;
+import com.app.pojos.Login;
+import com.app.pojos.Register;
+import com.app.dao.RegisterRepository;
 
 @RestController
 @RequestMapping("/")
