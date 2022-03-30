@@ -1,7 +1,5 @@
 package com.app.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.pojos.Login;
-import com.app.pojos.Register;
 import com.app.dao.RegisterRepository;
+import com.app.pojos.Register;
 
 @RestController
 @RequestMapping("/")
@@ -25,7 +22,7 @@ public class LoginController {
 	private RegisterRepository registerRepo;
 	
 	@PostMapping("/login")
-	public ResponseEntity<?> LoginSuccess(@RequestBody @Valid Login login) {
+	public ResponseEntity<?> LoginSuccess(@RequestBody Register login) {
 		try {
 			return ResponseEntity.ok(registerRepo.findByEmailAndPassword(login.getEmail(), login.getPassword()).orElseThrow(()->new RuntimeException("User not found")));
 		}catch(RuntimeException e) {
