@@ -4,10 +4,10 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.app.pojos.Register;
+import com.app.pojos.User;
 
-public interface RegisterRepository extends JpaRepository<Register, Integer>{
-	Optional<Register> findByEmailAndPassword(String email, String password);
+public interface RegisterRepository extends JpaRepository<User, Integer>{
+	Optional<User> findByEmailAndPassword(String email, String password);
 	
-	Optional<Register> findByEmail(String email);
+	Optional<User> findByEmail(String email);
 }

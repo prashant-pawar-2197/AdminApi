@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dao.RegisterRepository;
-import com.app.pojos.Register;
+import com.app.pojos.User;
 
 @RestController
 @RequestMapping("/")
@@ -22,7 +22,7 @@ public class LoginController {
 	private RegisterRepository registerRepo;
 	
 	@PostMapping("/login")
-	public ResponseEntity<?> LoginSuccess(@RequestBody Register login) {
+	public ResponseEntity<?> LoginSuccess(@RequestBody User login) {
 		try {
 			return ResponseEntity.ok(registerRepo.findByEmailAndPassword(login.getEmail(), login.getPassword()).orElseThrow(()->new RuntimeException("User not found")));
 		}catch(RuntimeException e) {
@@ -32,7 +32,7 @@ public class LoginController {
 		
 	}
 	@PostMapping("/register")
-	public ResponseEntity<?> RegisterUser(@RequestBody @Valid Register user){
+	public ResponseEntity<?> RegisterUser(@RequestBody @Valid User user){
 		try {
 			return ResponseEntity.ok(registerRepo.save(user));
 		}catch(RuntimeException e) {

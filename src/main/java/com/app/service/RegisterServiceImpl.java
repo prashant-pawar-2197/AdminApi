@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 
 import com.app.dao.ScreenRepository;
 import com.app.dao.SeatRepository;
+import com.app.dao.ShowRepository;
 import com.app.dao.TheatreRepository;
 import com.app.exception.AdminSqlExcep;
 import com.app.pojos.Screen;
 import com.app.pojos.Seat;
+import com.app.pojos.Show;
 import com.app.pojos.Theatre;
 
 @Service
@@ -22,6 +24,8 @@ public class RegisterServiceImpl implements IRegisterService {
 	private ScreenRepository screenRepo;
 	@Autowired
 	private SeatRepository seatRepo;
+	@Autowired
+	private ShowRepository showRepo;
 	
 	
 	@Override
@@ -53,6 +57,15 @@ public class RegisterServiceImpl implements IRegisterService {
 		}
 			
 		throw new AdminSqlExcep("adding seats has failed");
+	}
+
+	@Override
+	public Show addShow(Show show, int theatreId) {
+		if(theatreRepo.existsById(theatreId)) {
+			show.setTheatreId(theatreRepo.findById(theatreId).orElseThrow(() -> new AdminSqlExcep("theatre not found")));  
+			return showRepo.save(show);
+		}
+		throw new AdminSqlExcep("adding show has failed");
 	}
 	
 	

@@ -8,44 +8,50 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 @Entity
-@Table(name="register_details")
-public class Register extends BaseEntity{
-	@Column(name="first_name")
+@Table(name="user_details")
+public class User extends BaseEntity{
+	@Column(name="first_name", length = 20)
 	@NotBlank(message = "first name is mandatory")
 	private String firstName;
-	@Column(name="last_name")
+	@Column(name="last_name", length = 20)
 	@NotBlank(message = "last name is mandatory")
 	private String lastName;
+	@NotNull(message = "date of birth is mandatory")
 	@Column(name="date_of_birth")
 	private LocalDate dob;
-	@Column(name="gender")
+	@Column(name="gender", length = 20)
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
-	@Column(name="email", unique=true)
+	@Column(name="email", unique=true, length = 20)
 	@NotBlank(message = "email is mandatory")
+	@Pattern(regexp = "^(.+)@(.+)$", message = "the email is invalid")
 	private String email;
 	@Column(name="ph_no", unique=true)
 	@NotBlank(message="phone number is mandatory")
+	@Pattern(regexp="^[0-9]{10}$", message = "phone number not valid")
 	private String phone;
-	@Column(name="password")
+	@Column(name="password", length= 21)
 	@NotBlank(message="password cannot be blank")
+	@Pattern(regexp="((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{5,20})",message = "Invalid password")
 	private String password;
 	
 	
 
 
-	public Register() {
+	public User() {
 		
 	}
 	
-	public Register(String email, String password) {
+	public User(String email, String password) {
 		this.email=email;
 		this.password=password;
 	}
 
 
-	public Register(String firstName, String lastName, LocalDate dob, Gender gender, String email, String phone) {
+	public User(String firstName, String lastName, LocalDate dob, Gender gender, String email, String phone) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;

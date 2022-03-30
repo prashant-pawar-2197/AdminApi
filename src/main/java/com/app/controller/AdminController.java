@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.exception.AdminSqlExcep;
 import com.app.pojos.Screen;
 import com.app.pojos.Seat;
+import com.app.pojos.Show;
 import com.app.pojos.Theatre;
 import com.app.service.IRegisterService;
 
@@ -31,7 +31,7 @@ public class AdminController {
 			return new ResponseEntity<>(theatre, HttpStatus.OK);
 		}
 		@DeleteMapping("/removeTheatre/{id}")
-		private ResponseEntity<?> removeTheatre(@PathVariable int id) throws AdminSqlExcep {
+		private ResponseEntity<?> removeTheatre(@PathVariable int id)  {
 			registerService.deleteTheatre(id);
 			return new ResponseEntity<>("Delete Successful", HttpStatus.OK);
 		}
@@ -47,5 +47,12 @@ public class AdminController {
 			System.out.println("add seat");
 			return new ResponseEntity<>(registerService.addSeat(seat, screenId), HttpStatus.OK);
 		}
+		
+		@PostMapping("/theatre/{theatreId}/show")
+		private ResponseEntity<?> addShow(@RequestBody @Valid Show show,  @PathVariable int theatreId) {
+			System.out.println("add show");
+			return new ResponseEntity<>(registerService.addShow(show, theatreId), HttpStatus.OK);
+		}
+		
 		
 }
