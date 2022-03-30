@@ -1,8 +1,8 @@
 package com.app.exception;
 
-import java.sql.SQLException;
 
-public class AdminSqlExcep extends Exception {
+@SuppressWarnings("serial")
+public class AdminSqlExcep extends RuntimeException {
 
 	public AdminSqlExcep(String msg) {
 		super(msg);

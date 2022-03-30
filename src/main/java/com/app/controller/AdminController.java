@@ -13,29 +13,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.exception.AdminSqlExcep;
-import com.app.pojos.TheatreDetails;
+import com.app.pojos.Screen;
+import com.app.pojos.Seat;
+import com.app.pojos.Theatre;
 import com.app.service.IRegisterService;
 
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
 		@Autowired
-		private IRegisterService registerServ;
+		private IRegisterService registerService;
 		
 		@PostMapping("/addTheatre")
-		private ResponseEntity<Object> addTheatre(@RequestBody @Valid TheatreDetails theatre) throws AdminSqlExcep {
-			try {
-				System.out.println("reached here");
-				registerServ.addTheatre(theatre);
-			} catch (AdminSqlExcep e) {
-				throw new AdminSqlExcep("Error occured while adding"); 
-			}
-			return new ResponseEntity<Object>(theatre, HttpStatus.OK);
+		private ResponseEntity<?> addTheatre(@RequestBody @Valid Theatre theatre) {
+			System.out.println("reached add theatre");
+			registerService.addTheatre(theatre);
+			return new ResponseEntity<>(theatre, HttpStatus.OK);
 		}
 		@DeleteMapping("/removeTheatre/{id}")
-		private ResponseEntity<Object> removeTheatre(@PathVariable int id) throws AdminSqlExcep {
-			registerServ.deleteTheatre(id);
-			return new ResponseEntity<Object>("Delete Successful", HttpStatus.OK);
+		private ResponseEntity<?> removeTheatre(@PathVariable int id) throws AdminSqlExcep {
+			registerService.deleteTheatre(id);
+			return new ResponseEntity<>("Delete Successful", HttpStatus.OK);
+		}
+		
+		@PostMapping("/theatre/{theatreId}/screen")
+		private ResponseEntity<?> addScreen(@RequestBody @Valid Screen screen, @PathVariable int theatreId) {
+			System.out.println("add screen");
+			return new ResponseEntity<>(registerService.addScreen(screen, theatreId), HttpStatus.OK);
+		}
+		
+		@PostMapping("/screen/{screenId}/seat")
+		private ResponseEntity<?> addSeat(@RequestBody @Valid Seat seat,  @PathVariable int screenId) {
+			System.out.println("add seat");
+			return new ResponseEntity<>(registerService.addSeat(seat, screenId), HttpStatus.OK);
 		}
 		
 }
