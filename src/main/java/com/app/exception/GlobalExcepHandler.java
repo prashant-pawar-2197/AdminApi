@@ -28,7 +28,7 @@ public class GlobalExcepHandler extends ResponseEntityExceptionHandler {
 	}
 	
 	@ExceptionHandler
-	public ResponseEntity<Object> GlobalAdminSqlException(AdminSqlExcep ex,HttpHeaders headers, HttpStatus status, WebRequest request){
+	public ResponseEntity<Object> GlobalRuntimeExceptionHandler(RuntimeException ex){
 		ErrorResponse resp=new ErrorResponse(ex.getMessage(),LocalDateTime.now());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(resp);
 	}

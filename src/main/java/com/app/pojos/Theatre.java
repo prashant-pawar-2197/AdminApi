@@ -1,11 +1,14 @@
 package com.app.pojos;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -38,14 +41,21 @@ public class Theatre extends BaseEntity {
 	private List<Show> shows = new ArrayList<>();
 	@OneToMany(mappedBy = "theatreId", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Screen> screens = new ArrayList<>();
+	@Enumerated(EnumType.STRING)
+	@Column(length = 20)
+	private TheatreStatus status;
+	@Column(length = 30)
+	private String lastUpdatedBy;
+	private Time lastUpdated;
+
 
 	public Theatre(@NotEmpty(message = "theatre name cannot be empty") String theatreName,
 			@NotEmpty(message = "theatre city cannot be empty") String theatreCity,
 			@NotEmpty(message = "theatre contact number cannot be empty") @Pattern(regexp = "^[0-9]{10}$", message = "mobile number not valid") String theatreContactNumber,
 			@NotNull(message = "number of screens cannot be empty") int numberOfScreens,
 			@NotEmpty(message = "theatre state cannot be empty") String theatreState,
-			@Pattern(regexp = "^[1-9][0-9]{5}$", message = "pincode not valid") String theatrePincode, List<Show> shows,
-			List<Screen> screens) {
+			@Pattern(regexp = "^[1-9][0-9]{5}$", message = "pincode not valid") String theatrePincode,
+			TheatreStatus status, String lastUpdatedBy, Time lastUpdated) {
 		super();
 		this.theatreName = theatreName;
 		this.theatreCity = theatreCity;
@@ -53,8 +63,9 @@ public class Theatre extends BaseEntity {
 		this.numberOfScreens = numberOfScreens;
 		this.theatreState = theatreState;
 		this.theatrePincode = theatrePincode;
-		this.shows = shows;
-		this.screens = screens;
+		this.status = status;
+		this.lastUpdatedBy = lastUpdatedBy;
+		this.lastUpdated = lastUpdated;
 	}
 
 	public Theatre() {
@@ -125,11 +136,37 @@ public class Theatre extends BaseEntity {
 		this.screens = screens;
 	}
 
+	public TheatreStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(TheatreStatus status) {
+		this.status = status;
+	}
+
+	public String getLastUpdatedBy() {
+		return lastUpdatedBy;
+	}
+
+	public void setLastUpdatedBy(String lastUpdatedBy) {
+		this.lastUpdatedBy = lastUpdatedBy;
+	}
+
+	public Time getLastUpdated() {
+		return lastUpdated;
+	}
+
+	public void setLastUpdated(Time lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
+
+	
+
 	@Override
 	public String toString() {
 		return "Theatre [theatreName=" + theatreName + ", theatreCity=" + theatreCity + ", theatreContactNumber="
 				+ theatreContactNumber + ", numberOfScreens=" + numberOfScreens + ", theatreState=" + theatreState
 				+ ", theatrePincode=" + theatrePincode + "]";
 	}
-
+	
 }

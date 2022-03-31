@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 public class Show extends BaseEntity{
 	
 	@ManyToOne
-	@JoinColumn(name = "theatre_id", nullable=false)
+	@JoinColumn(name = "theatre_id",nullable=false)
 	private Theatre theatreId;
 	@NotNull(message = "Please Enter Start Time")
 	private Time startTime;

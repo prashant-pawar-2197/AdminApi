@@ -11,6 +11,7 @@ import com.app.dao.ScreenRepository;
 import com.app.dao.SeatRepository;
 import com.app.dao.ShowRepository;
 import com.app.dao.TheatreRepository;
+import com.app.dto.TheatreDto;
 import com.app.exception.AdminSqlExcep;
 import com.app.pojos.Screen;
 import com.app.pojos.Seat;
@@ -37,9 +38,11 @@ public class TheatreServiceImpl implements ITheatreService {
 
 	@Override
 	public void deleteTheatre(int id)  {
+		System.out.println(id);
 		if(theatreRepo.existsById(id))
 			theatreRepo.deleteById(id);
-		throw new AdminSqlExcep("Theatre deletion failed, no theatre present with ID: " + id);
+		else
+			throw new AdminSqlExcep("Theatre deletion failed, no theatre present with ID: " + id);
 	}
 
 	@Override
@@ -71,8 +74,8 @@ public class TheatreServiceImpl implements ITheatreService {
 	}
 	
 	@Override
-	public List<Theatre> getAllTheatres(){
-		return theatreRepo.findAll();
+	public List<TheatreDto> getAllTheatres(){
+		return theatreRepo.findAllTheatres();
 	}
 	
 	
