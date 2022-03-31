@@ -17,7 +17,7 @@ import com.app.pojos.Theatre;
 
 @Service
 @Transactional
-public class RegisterServiceImpl implements IRegisterService {
+public class TheatreServiceImpl implements ITheatreService {
 	@Autowired
 	private TheatreRepository theatreRepo;
 	@Autowired

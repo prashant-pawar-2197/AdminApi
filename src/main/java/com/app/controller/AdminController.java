@@ -16,13 +16,13 @@ import com.app.pojos.Screen;
 import com.app.pojos.Seat;
 import com.app.pojos.Show;
 import com.app.pojos.Theatre;
-import com.app.service.IRegisterService;
+import com.app.service.ITheatreService;
 
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
 		@Autowired
-		private IRegisterService registerService;
+		private ITheatreService registerService;
 		
 		@PostMapping("/addTheatre")
 		private ResponseEntity<?> addTheatre(@RequestBody @Valid Theatre theatre) {

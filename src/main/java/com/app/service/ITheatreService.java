@@ -5,7 +5,7 @@ import com.app.pojos.Seat;
 import com.app.pojos.Show;
 import com.app.pojos.Theatre;
 
-public interface IRegisterService {
+public interface ITheatreService {
 	public Theatre addTheatre(Theatre theatre) ;
 	public void deleteTheatre(int id);
 	public Screen addScreen(Screen screen, int theatreId);

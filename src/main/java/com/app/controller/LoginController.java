@@ -11,32 +11,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.dao.RegisterRepository;
+import com.app.dao.UserRepository;
 import com.app.pojos.User;
+import com.app.service.IUserService;
 
 @RestController
 @RequestMapping("/")
 @CrossOrigin(origins="http://localhost:3000")
 public class LoginController {
 	@Autowired
-	private RegisterRepository registerRepo;
+	private IUserService userService;
 	
 	@PostMapping("/login")
 	public ResponseEntity<?> LoginSuccess(@RequestBody User login) {
-		try {
-			return ResponseEntity.ok(registerRepo.findByEmailAndPassword(login.getEmail(), login.getPassword()).orElseThrow(()->new RuntimeException("User not found")));
-		}catch(RuntimeException e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-		}
+			return ResponseEntity.ok(userService.loginUser(login));
 		
 		
 	}
 	@PostMapping("/register")
 	public ResponseEntity<?> RegisterUser(@RequestBody @Valid User user){
-		try {
-			return ResponseEntity.ok(registerRepo.save(user));
-		}catch(RuntimeException e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-		}
+			return ResponseEntity.ok(userService.registerUser(user));
+		
 	}
 }
