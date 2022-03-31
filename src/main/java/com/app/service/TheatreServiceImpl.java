@@ -1,5 +1,7 @@
 package com.app.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +68,11 @@ public class TheatreServiceImpl implements ITheatreService {
 			return showRepo.save(show);
 		}
 		throw new AdminSqlExcep("adding show has failed");
+	}
+	
+	@Override
+	public List<Theatre> getAllTheatres(){
+		return theatreRepo.findAll();
 	}
 	
 	

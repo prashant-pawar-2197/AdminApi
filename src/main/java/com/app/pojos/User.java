@@ -1,15 +1,21 @@
 package com.app.pojos;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+
+
 @Entity
 @Table(name="user_details")
 public class User extends BaseEntity{
@@ -37,9 +43,9 @@ public class User extends BaseEntity{
 	@NotBlank(message="password cannot be blank")
 	@Pattern(regexp="((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{5,20})",message = "Invalid password")
 	private String password;
+	@OneToMany(mappedBy="userId", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Booking> bookings = new ArrayList<>();
 	
-	
-
 
 	public User() {
 		
