@@ -53,16 +53,23 @@ public class TheatreServiceImpl implements ITheatreService {
 
 	@Override
 	public Show addShow(Show show, int theatreId) {
-		if(theatreRepo.existsById(theatreId)) {
-			show.setTheatre(theatreRepo.findById(theatreId).orElseThrow(() -> new AdminSqlExcep("theatre not found")));  
-			return showRepo.save(show);
-		}
-		throw new AdminSqlExcep("adding show has failed");
+		return null;
+//		if(theatreRepo.existsById(theatreId)) {
+//			show.setTheatre(theatreRepo.findById(theatreId).orElseThrow(() -> new AdminSqlExcep("theatre not found")));  
+//			return showRepo.save(show);
+//		}
+//		throw new AdminSqlExcep("adding show has failed");
 	}
 	
 	@Override
 	public List<TheatreDto> getAllTheatres(){
 		return theatreRepo.findAllTheatres();
+	}
+
+	@Override
+	public List<String> getAllCitiesFromTheatres() {
+		return theatreRepo.getTheatreCities();
+	 
 	}
 	
 	

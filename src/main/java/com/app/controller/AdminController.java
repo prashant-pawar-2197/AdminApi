@@ -49,7 +49,10 @@ public class AdminController {
 			return new ResponseEntity<>(theatreService.getAllTheatres(), HttpStatus.OK);
 		}
 		
-
+		@GetMapping("/getTheatreCities")
+		private ResponseEntity<?> getAllTheatreCities(){
+			return new ResponseEntity<>(theatreService.getAllCitiesFromTheatres(), HttpStatus.OK);
+		}
 		
 		@PostMapping("/theatre/{theatreId}/show")
 		private ResponseEntity<?> addShow(@RequestBody @Valid Show show,  @PathVariable int theatreId) {

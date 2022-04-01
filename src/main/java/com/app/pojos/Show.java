@@ -26,10 +26,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Show extends BaseEntity{
-	
-	@ManyToOne
-	@JoinColumn(name = "theatre_id",nullable=false)
-	private Theatre theatre;
+
 	@NotNull(message = "Please Enter Start Time")
 	@JsonFormat(pattern ="HH:mm:ss")
 	private LocalTime startTime;
@@ -55,7 +52,7 @@ public class Show extends BaseEntity{
 	
 	@Override
 	public String toString() {
-		return "Show [theatre=" + theatre + ", startTime=" + startTime + ", endTime=" + endTime + ", movie=" + movie
+		return "Show [startTime=" + startTime + ", endTime=" + endTime + ", movie=" + movie
 				+ ", screen=" + screen + ", showStatus=" + showStatus + ", goldPrice=" + goldPrice + ", diamondPrice="
 				+ diamondPrice + ", silverPrice=" + silverPrice + "]";
 	}

@@ -54,8 +54,6 @@ public class Theatre extends BaseEntity {
 	@Pattern(regexp = "^[1-9][0-9]{5}$", message = "pincode not valid")
 	private String theatrePincode;
 	@OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Show> shows = new ArrayList<>();
-	@OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Screen> screens = new ArrayList<>();
 	@Enumerated(EnumType.STRING)
 	@Column(length = 20)
