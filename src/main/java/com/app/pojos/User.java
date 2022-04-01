@@ -15,9 +15,20 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 
 @Entity
 @Table(name="user_details")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class User extends BaseEntity{
 	@Column(name="first_name", length = 20)
 	@NotBlank(message = "first name is mandatory")
@@ -27,6 +38,7 @@ public class User extends BaseEntity{
 	private String lastName;
 	@NotNull(message = "date of birth is mandatory")
 	@Column(name="date_of_birth")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dob;
 	@Column(name="gender", length = 20)
 	@Enumerated(EnumType.STRING)
@@ -43,98 +55,9 @@ public class User extends BaseEntity{
 	@NotBlank(message="password cannot be blank")
 	@Pattern(regexp="((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{5,20})",message = "Invalid password")
 	private String password;
-	@OneToMany(mappedBy="userId", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy="user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Booking> bookings = new ArrayList<>();
 	
-
-	public User() {
-		
-	}
-	
-	public User(String email, String password) {
-		this.email=email;
-		this.password=password;
-	}
-
-
-	public User(String firstName, String lastName, LocalDate dob, Gender gender, String email, String phone) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.dob = dob;
-		this.gender = gender;
-		this.email = email;
-		this.phone = phone;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	public String getFirstName() {
-		return firstName;
-	}
-
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-
-	public String getLastName() {
-		return lastName;
-	}
-
-
-	public void setLastName(String lastname) {
-		this.lastName = lastname;
-	}
-
-
-	public LocalDate getDob() {
-		return dob;
-	}
-
-
-	public void setDob(LocalDate dob) {
-		this.dob = dob;
-	}
-
-
-	public Gender getGender() {
-		return gender;
-	}
-
-
-	public void setGender(Gender gender) {
-		this.gender = gender;
-	}
-
-
-	public String getEmail() {
-		return email;
-	}
-
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-
-	public String getPhone() {
-		return phone;
-	}
-
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
 
 	@Override
 	public String toString() {

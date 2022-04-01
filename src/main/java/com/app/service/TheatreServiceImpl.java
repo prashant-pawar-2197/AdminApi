@@ -38,7 +38,6 @@ public class TheatreServiceImpl implements ITheatreService {
 
 	@Override
 	public void deleteTheatre(int id)  {
-		System.out.println(id);
 		if(theatreRepo.existsById(id))
 			theatreRepo.deleteById(id);
 		else
@@ -48,7 +47,7 @@ public class TheatreServiceImpl implements ITheatreService {
 	@Override
 	public Screen addScreen(Screen screen, int theatreId) {
 		if(theatreRepo.existsById(theatreId)) {
-			screen.setTheatreId(theatreRepo.findById(theatreId).orElseThrow(() -> new AdminSqlExcep("theatre not found")));  
+			screen.setTheatre(theatreRepo.findById(theatreId).orElseThrow(() -> new AdminSqlExcep("theatre not found")));  
 			return screenRepo.save(screen);
 		}
 		throw new AdminSqlExcep("adding screens has failed");
@@ -57,7 +56,7 @@ public class TheatreServiceImpl implements ITheatreService {
 	@Override
 	public Seat addSeat(Seat seat, int screenId) {
 		if(screenRepo.existsById(screenId)) {
-			seat.setScreenId(screenRepo.findById(screenId).orElseThrow(() -> new AdminSqlExcep("screen not found")));
+			seat.setScreen(screenRepo.findById(screenId).orElseThrow(() -> new AdminSqlExcep("screen not found")));
 			return seatRepo.save(seat);
 		}
 			
@@ -67,7 +66,7 @@ public class TheatreServiceImpl implements ITheatreService {
 	@Override
 	public Show addShow(Show show, int theatreId) {
 		if(theatreRepo.existsById(theatreId)) {
-			show.setTheatreId(theatreRepo.findById(theatreId).orElseThrow(() -> new AdminSqlExcep("theatre not found")));  
+			show.setTheatre(theatreRepo.findById(theatreId).orElseThrow(() -> new AdminSqlExcep("theatre not found")));  
 			return showRepo.save(show);
 		}
 		throw new AdminSqlExcep("adding show has failed");

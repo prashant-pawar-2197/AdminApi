@@ -9,10 +9,10 @@ import com.app.pojos.Show;
 import com.app.pojos.Theatre;
 
 public interface ITheatreService {
-	public Theatre addTheatre(Theatre theatre) ;
-	public void deleteTheatre(int id);
-	public Screen addScreen(Screen screen, int theatreId);
-	public Seat addSeat(Seat seat, int screenId);
-	public Show addShow(Show show, int theatreId);
-	public List<TheatreDto> getAllTheatres();
+	Theatre addTheatre(Theatre theatre) ;
+	void deleteTheatre(int id);
+	Screen addScreen(Screen screen, int theatreId);
+	Seat addSeat(Seat seat, int screenId);
+	Show addShow(Show show, int theatreId);
+	List<TheatreDto> getAllTheatres();
 }
