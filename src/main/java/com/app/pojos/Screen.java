@@ -1,13 +1,8 @@
 package com.app.pojos;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -21,26 +16,23 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Screen extends BaseEntity{
-	@NotNull(message = "screen number cannot be null")
+	
+	@NotNull
 	private int screenNumber;
 	@ManyToOne
-	@JoinColumn(name = "theatre_id", nullable = false)
+	@JoinColumn(name = "theatre_id")
 	private Theatre theatre;
-	@ManyToOne
-	@JoinColumn(name="show_id")
-	private Show show;
-	@OneToMany(mappedBy = "screen", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Seat> seats = new ArrayList<>();
-	
-	
+	@NotNull(message = "please enter the number of rows")
+	private int screenRows;
+	@NotNull(message = "please enter the number of columns")
+	private int screenColumns;
 	@Override
 	public String toString() {
-		return "Screen [screenNumber=" + screenNumber + ", theatre=" + theatre + ", show=" + show + "]";
+		return "Screen [screenNumber=" + screenNumber + ", theatre=" + theatre + ", screenRows=" + screenRows
+				+ ", screenColumns=" + screenColumns + "]";
 	}
-	
 
 
-	
 	
 	
 }

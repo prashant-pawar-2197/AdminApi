@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.pojos.Screen;
-import com.app.pojos.Seat;
 import com.app.pojos.Show;
 import com.app.pojos.Theatre;
 import com.app.service.ITheatreService;
@@ -50,11 +49,7 @@ public class AdminController {
 			return new ResponseEntity<>(theatreService.getAllTheatres(), HttpStatus.OK);
 		}
 		
-		@PostMapping("/screen/{screenId}/seat")
-		private ResponseEntity<?> addSeat(@RequestBody @Valid Seat seat,  @PathVariable int screenId) {
-			System.out.println("add seat");
-			return new ResponseEntity<>(theatreService.addSeat(seat, screenId), HttpStatus.OK);
-		}
+
 		
 		@PostMapping("/theatre/{theatreId}/show")
 		private ResponseEntity<?> addShow(@RequestBody @Valid Show show,  @PathVariable int theatreId) {

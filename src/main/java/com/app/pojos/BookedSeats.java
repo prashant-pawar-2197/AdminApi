@@ -19,9 +19,6 @@ import lombok.Setter;
 @Setter
 public class BookedSeats extends BaseEntity {
 
-	@ManyToOne
-	@JoinColumn(name = "seat_id", nullable=false)
-	private Seat seat;
 	@Column(length = 40)
 	private String seatNumber;
 	@ManyToOne
@@ -30,13 +27,13 @@ public class BookedSeats extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "booking_id", nullable=false)
 	private Booking booking;
-	
-	
 	@Override
 	public String toString() {
-		return "BookedSeats [seat=" + seat + ", seatNumber=" + seatNumber + ", show=" + show + ", booking=" + booking
-				+ "]";
+		return "BookedSeats [seatNumber=" + seatNumber + ", show=" + show + ", booking=" + booking + "]";
 	}
+	
+	
+
 
 	
 	

@@ -8,13 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.dao.ScreenRepository;
-import com.app.dao.SeatRepository;
 import com.app.dao.ShowRepository;
 import com.app.dao.TheatreRepository;
 import com.app.dto.TheatreDto;
 import com.app.exception.AdminSqlExcep;
 import com.app.pojos.Screen;
-import com.app.pojos.Seat;
 import com.app.pojos.Show;
 import com.app.pojos.Theatre;
 
@@ -25,8 +23,6 @@ public class TheatreServiceImpl implements ITheatreService {
 	private TheatreRepository theatreRepo;
 	@Autowired
 	private ScreenRepository screenRepo;
-	@Autowired
-	private SeatRepository seatRepo;
 	@Autowired
 	private ShowRepository showRepo;
 	
@@ -53,15 +49,7 @@ public class TheatreServiceImpl implements ITheatreService {
 		throw new AdminSqlExcep("adding screens has failed");
 	}
 
-	@Override
-	public Seat addSeat(Seat seat, int screenId) {
-		if(screenRepo.existsById(screenId)) {
-			seat.setScreen(screenRepo.findById(screenId).orElseThrow(() -> new AdminSqlExcep("screen not found")));
-			return seatRepo.save(seat);
-		}
-			
-		throw new AdminSqlExcep("adding seats has failed");
-	}
+
 
 	@Override
 	public Show addShow(Show show, int theatreId) {
