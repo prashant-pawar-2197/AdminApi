@@ -1,6 +1,7 @@
 package com.app.pojos;
 
 import java.time.LocalTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,7 +10,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import com.fasterxml.jackson.annotation.JsonFormat;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,10 +29,10 @@ import lombok.Setter;
 public class Show extends BaseEntity{
 
 	@NotNull(message = "Please Enter Start Time")
-	@JsonFormat(pattern ="HH:mm:ss")
+	@JsonSerialize(using = LocalTimeSerializer.class)
 	private LocalTime startTime;
 	@NotNull(message = "Please Enter End Time")
-	@JsonFormat(pattern ="HH:mm:ss")
+	@JsonSerialize(using = LocalTimeSerializer.class)
 	private LocalTime endTime;
 	@ManyToOne
 	@JoinColumn(name = "movie_id",nullable = false)

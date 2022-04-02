@@ -1,6 +1,6 @@
 package com.app.pojos;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +20,8 @@ import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -60,8 +61,8 @@ public class Theatre extends BaseEntity {
 	private TheatreStatus status;
 	@Column(length = 30)
 	private String lastUpdatedBy;
-	@JsonFormat(pattern = "HH:mm:ss")
-	private LocalTime lastUpdated;
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	private LocalDateTime lastUpdated;
 	
 	
 	@Override

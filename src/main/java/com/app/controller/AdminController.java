@@ -60,8 +60,8 @@ public class AdminController {
 			return new ResponseEntity<>(theatreService.addShow(show, theatreId), HttpStatus.OK);
 		}
 		
-		@GetMapping("/getScreenNos")
-		private ResponseEntity<?> getAllScreenNos(){
-			return new ResponseEntity<>(theatreService.getAllScreens(), HttpStatus.OK);
+		@GetMapping("/getScreenNos/{theatreId}")
+		private ResponseEntity<?> getAllScreenNos(@PathVariable int theatreId){
+			return new ResponseEntity<>(theatreService.getAllScreens(theatreId), HttpStatus.OK);
 		}
 }

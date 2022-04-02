@@ -7,9 +7,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.dao.MovieRepository;
 import com.app.dao.ScreenRepository;
 import com.app.dao.ShowRepository;
 import com.app.dao.TheatreRepository;
+import com.app.dto.ScreenDto;
 import com.app.dto.TheatreDto;
 import com.app.exception.AdminSqlExcep;
 import com.app.pojos.Screen;
@@ -25,6 +27,8 @@ public class TheatreServiceImpl implements ITheatreService {
 	private ScreenRepository screenRepo;
 	@Autowired
 	private ShowRepository showRepo;
+	@Autowired
+	private MovieRepository movieRepo;
 	
 	
 	@Override
@@ -72,8 +76,8 @@ public class TheatreServiceImpl implements ITheatreService {
 	}
 
 	@Override
-	public List<Integer> getAllScreens() {
-	return theatreRepo.getAllScreenNumbers();
+	public List<ScreenDto> getAllScreens(int theatreId) {
+	return theatreRepo.getAllScreenNumbers(theatreId);
 	}
 	
 	
