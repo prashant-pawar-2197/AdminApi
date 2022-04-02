@@ -1,5 +1,6 @@
 package com.app.pojos;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,6 +19,7 @@ import lombok.Setter;
 public class Screen extends BaseEntity{
 	
 	@NotNull
+	@Column(name="screen_number")
 	private int screenNumber;
 	@ManyToOne
 	@JoinColumn(name = "theatre_id")

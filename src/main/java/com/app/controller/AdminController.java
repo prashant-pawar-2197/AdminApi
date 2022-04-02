@@ -49,9 +49,9 @@ public class AdminController {
 			return new ResponseEntity<>(theatreService.getAllTheatres(), HttpStatus.OK);
 		}
 		
-		@GetMapping("/getTheatreCities")
-		private ResponseEntity<?> getAllTheatreCities(){
-			return new ResponseEntity<>(theatreService.getAllCitiesFromTheatres(), HttpStatus.OK);
+		@GetMapping("/getTheatresByCity/{city}")
+		private ResponseEntity<?> getAllTheatreCities(@PathVariable String city){
+			return new ResponseEntity<>(theatreService.getAllTheatresByCity(city), HttpStatus.OK);
 		}
 		
 		@PostMapping("/theatre/{theatreId}/show")
@@ -60,5 +60,8 @@ public class AdminController {
 			return new ResponseEntity<>(theatreService.addShow(show, theatreId), HttpStatus.OK);
 		}
 		
-		
+		@GetMapping("/getScreenNos")
+		private ResponseEntity<?> getAllScreenNos(){
+			return new ResponseEntity<>(theatreService.getAllScreens(), HttpStatus.OK);
+		}
 }

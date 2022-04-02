@@ -67,9 +67,13 @@ public class TheatreServiceImpl implements ITheatreService {
 	}
 
 	@Override
-	public List<String> getAllCitiesFromTheatres() {
-		return theatreRepo.getTheatreCities();
-	 
+	public List<TheatreDto> getAllTheatresByCity(String city) {
+		return theatreRepo.findAllTheatresByCity(city);
+	}
+
+	@Override
+	public List<Integer> getAllScreens() {
+	return theatreRepo.getAllScreenNumbers();
 	}
 	
 	

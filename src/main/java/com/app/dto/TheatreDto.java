@@ -38,7 +38,11 @@ public class TheatreDto {
 		this.theatreState = theatreState;
 		this.theatreCity = theatreCity;
 	}
-	
+	public TheatreDto(Integer id, String theatreName) {
+		super();
+		this.id = id;
+		this.theatreName = theatreName;
+	}
 	
 	
 	
