@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.pojos.Screen;
-import com.app.pojos.Show;
 import com.app.pojos.Theatre;
 import com.app.service.ITheatreService;
 
@@ -54,11 +53,6 @@ public class AdminController {
 			return new ResponseEntity<>(theatreService.getAllTheatresByCity(city), HttpStatus.OK);
 		}
 		
-		@PostMapping("/theatre/{theatreId}/show")
-		private ResponseEntity<?> addShow(@RequestBody @Valid Show show,  @PathVariable int theatreId) {
-			System.out.println("add show");
-			return new ResponseEntity<>(theatreService.addShow(show, theatreId), HttpStatus.OK);
-		}
 		
 		@GetMapping("/getScreenNos/{theatreId}")
 		private ResponseEntity<?> getAllScreenNos(@PathVariable int theatreId){

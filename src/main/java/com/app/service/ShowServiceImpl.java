@@ -2,7 +2,6 @@ package com.app.service;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
