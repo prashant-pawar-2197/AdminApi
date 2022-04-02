@@ -37,10 +37,8 @@ public class ShowServiceImpl implements IShowService {
 		// find by id
 		if (screenRepo.existsById(screenId) && theatreRepo.existsById(theatreId)) {
 			Screen screen = screenRepo.findById(screenId).orElseThrow(()->new RuntimeException("screen not found"));
-			System.out.println("Screen : "+screen);
 			show.setScreen(screen);
 			Theatre theatre = theatreRepo.findById(theatreId).orElseThrow(()->new RuntimeException("Theatre not found"));
-			System.out.println("Theatre "+theatre+" "+theatreId);
 			theatre.addScreen(screen);
 			Movie movie = movieRepo.findById(movieId).orElseThrow(()->new RuntimeException("Movie not found"));
 			System.out.println("Movie : "+movie);
@@ -50,12 +48,16 @@ public class ShowServiceImpl implements IShowService {
 			// see if the timing are free on that screen
 			List<Show> shows = showRepo.findByScreen(screen);
 			// show time must not match with any show
+			
+			//show timings
+			System.out.println("My Show start time : "+show.getStartTime());
+			System.out.println("My Show end time : "+show.getEndTime());
 			Iterator itr = shows.iterator();
 			while (itr.hasNext()) {
 				Show temp = (Show) itr.next();
-				if (temp.getEndTime().isBefore(show.getStartTime()) && show.getEndTime().isAfter(temp.getStartTime()) 
-						 && temp.getShowDate().isEqual(show.getShowDate())) {
-					System.out.println("In if");
+				if ((temp.getEndTime().isBefore(show.getStartTime()) || show.getEndTime().isAfter(temp.getStartTime())) 
+						  && temp.getShowDate().isEqual(show.getShowDate())) {
+					
 					throw new RuntimeException("Show already exist at this timing");
 				}
 				

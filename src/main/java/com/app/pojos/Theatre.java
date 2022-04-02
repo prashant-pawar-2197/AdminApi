@@ -20,6 +20,7 @@ import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
@@ -34,6 +35,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @SQLDelete(sql = "UPDATE theatre_details SET status = 'INACTIVE' WHERE id=?", check=ResultCheckStyle.COUNT)
 @Where(clause = "status <> 'INACTIVE'")
+@JsonIgnoreProperties(value= {"screens"})
 public class Theatre extends BaseEntity {
 	@Column(name = "theatre_name", length = 30)
 	@NotEmpty(message = "theatre name cannot be empty")
