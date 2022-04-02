@@ -11,5 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ScreenDto {
 	private Integer id;
+	private String screenStatus;
 	private int screenNumber;
+	private int theatre_id;
 }
