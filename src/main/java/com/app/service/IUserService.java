@@ -3,6 +3,6 @@ package com.app.service;
 import com.app.pojos.User;
 
 public interface IUserService {
-	public User registerUser(User user);
-	public <Optional>User loginUser(User user);
+	User registerUser(User user);
+	<Optional>User loginUser(User user);
 }

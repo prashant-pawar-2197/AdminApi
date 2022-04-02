@@ -39,9 +39,9 @@ public class ShowServiceImpl implements IShowService {
 			show.setScreen(screen);
 			Theatre theatre = theatreRepo.getById(theatreId);
 			System.out.println("Theatre "+theatre+" "+theatreId);
-			theatre.addShow(show);
+			theatre.addScreen(screen);
 			Movie movie = movieRepo.getById(movieId);
-			show.setMovieId(movie);
+			show.setMovie(movie);
 			System.out.println("screen :" + show.getScreen());
 			System.out.println("screenId :"+show.getScreen().getId());
 			// see if the timing are free on that screen
