@@ -7,15 +7,12 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.app.dao.MovieRepository;
 import com.app.dao.ScreenRepository;
-import com.app.dao.ShowRepository;
 import com.app.dao.TheatreRepository;
 import com.app.dto.ScreenDto;
 import com.app.dto.TheatreDto;
 import com.app.exception.AdminSqlExcep;
 import com.app.pojos.Screen;
-import com.app.pojos.Show;
 import com.app.pojos.Theatre;
 
 @Service
@@ -25,10 +22,7 @@ public class TheatreServiceImpl implements ITheatreService {
 	private TheatreRepository theatreRepo;
 	@Autowired
 	private ScreenRepository screenRepo;
-	@Autowired
-	private ShowRepository showRepo;
-	@Autowired
-	private MovieRepository movieRepo;
+
 	
 	
 	@Override
@@ -55,15 +49,7 @@ public class TheatreServiceImpl implements ITheatreService {
 
 
 
-	@Override
-	public Show addShow(Show show, int theatreId) {
-		return null;
-//		if(theatreRepo.existsById(theatreId)) {
-//			show.setTheatre(theatreRepo.findById(theatreId).orElseThrow(() -> new AdminSqlExcep("theatre not found")));  
-//			return showRepo.save(show);
-//		}
-//		throw new AdminSqlExcep("adding show has failed");
-	}
+
 	
 	@Override
 	public List<TheatreDto> getAllTheatres(){

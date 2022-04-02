@@ -24,13 +24,10 @@ public class Screen extends BaseEntity{
 	@ManyToOne
 	@JoinColumn(name = "theatre_id")
 	private Theatre theatre;
-
+	@Column(name="screen_status")
+	private String screenStatus;
 	@Override
 	public String toString() {
-		return "Screen [screenNumber=" + screenNumber + ", theatre=" + theatre +  "]";
+		return "Screen [screenNumber=" + screenNumber + ", theatre=" + theatre +"]";
 	}
-
-
-	
-	
 }
