@@ -1,5 +1,5 @@
 package com.app.pojos;
 
 public enum ShowStatus {
-	CANCELLED, RUNNING, UPCOMING
+	CANCELLED, RUNNING, UPCOMING,COMPLETED
 }

@@ -28,11 +28,11 @@ public class Screen extends BaseEntity{
 	@ManyToOne
 	@JoinColumn(name = "theatre_id", nullable = false)
 	private Theatre theatreId;
-	@ManyToOne
-	@JoinColumn(name="show_id")
-	private Show showId;
 	@OneToMany(mappedBy = "screenId", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Seat> seats = new ArrayList<>();
+	@OneToMany(mappedBy="screen",cascade=CascadeType.ALL,orphanRemoval=true)
+	private List<Show> shows = new ArrayList<>();
+	
 	
 	@Override
 	public String toString() {

@@ -160,7 +160,16 @@ public class Theatre extends BaseEntity {
 		this.lastUpdated = lastUpdated;
 	}
 
+	public void addShow(Show show){
+		shows.add(show);
+		show.setTheatreId(this);
+		return;
+	}
 	
+	public void removeShow(Show show){
+		shows.remove(show);
+		show.setTheatreId(null);
+	}
 
 	@Override
 	public String toString() {
