@@ -25,7 +25,6 @@ import lombok.Setter;
 
 @Entity
 @Table(name="user_details")
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -57,6 +56,9 @@ public class User extends BaseEntity{
 	private String password;
 	@OneToMany(mappedBy="user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Booking> bookings = new ArrayList<>();
+	@Enumerated(EnumType.STRING)
+	private Role role;
+	
 	
 	//login constructor -- please na hataye
 	public User(Integer id,
@@ -72,7 +74,24 @@ public class User extends BaseEntity{
 				+ ", email=" + email + ", phone=" + phone + "]";
 	}
 
-	
+
+
+	public User(Integer id, @NotBlank(message = "first name is mandatory") String firstName,
+			@NotBlank(message = "last name is mandatory") String lastName,
+			@NotNull(message = "date of birth is mandatory") LocalDate dob, Gender gender,
+			@NotBlank(message = "email is mandatory") @Pattern(regexp = "^(.+)@(.+)$", message = "the email is invalid") String email,
+			@NotBlank(message = "phone number is mandatory") @Pattern(regexp = "^[0-9]{10}$", message = "phone number not valid") String phone,
+			@NotBlank(message = "password cannot be blank") @Pattern(regexp = "((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{5,20})", message = "Invalid password") String password, Role role) {
+		super(id);
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.dob = dob;
+		this.gender = gender;
+		this.email = email;
+		this.phone = phone;
+		this.password = password;
+		this.role = role;
+	}
 	
 	
 }
