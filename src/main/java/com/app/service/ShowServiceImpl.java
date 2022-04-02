@@ -2,6 +2,7 @@ package com.app.service;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -35,12 +36,14 @@ public class ShowServiceImpl implements IShowService {
 		// get all shows whose screen is same as (this) screen
 		// find by id
 		if (screenRepo.existsById(screenId) && theatreRepo.existsById(theatreId)) {
-			Screen screen = screenRepo.getById(screenId);
+			Screen screen = screenRepo.findById(screenId).orElseThrow(()->new RuntimeException("screen not found"));
+			System.out.println("Screen : "+screen);
 			show.setScreen(screen);
-			Theatre theatre = theatreRepo.getById(theatreId);
+			Theatre theatre = theatreRepo.findById(theatreId).orElseThrow(()->new RuntimeException("Theatre not found"));
 			System.out.println("Theatre "+theatre+" "+theatreId);
 			theatre.addScreen(screen);
-			Movie movie = movieRepo.getById(movieId);
+			Movie movie = movieRepo.findById(movieId).orElseThrow(()->new RuntimeException("Movie not found"));
+			System.out.println("Movie : "+movie);
 			show.setMovie(movie);
 			System.out.println("screen :" + show.getScreen());
 			System.out.println("screenId :"+show.getScreen().getId());
@@ -51,10 +54,11 @@ public class ShowServiceImpl implements IShowService {
 			while (itr.hasNext()) {
 				Show temp = (Show) itr.next();
 				if (temp.getEndTime().isBefore(show.getStartTime()) && show.getEndTime().isAfter(temp.getStartTime()) 
-						 && temp.getShowDate() == show.getShowDate()) {
+						 && temp.getShowDate().isEqual(show.getShowDate())) {
+					System.out.println("In if");
 					throw new RuntimeException("Show already exist at this timing");
 				}
-
+				
 			}
 			return showRepo.save(show);
 		}else {
