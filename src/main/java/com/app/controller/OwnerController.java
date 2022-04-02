@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.pojos.Movie;
 import com.app.pojos.Show;
+import com.app.service.IMovieService;
 import com.app.service.IShowService;
 
 
@@ -21,6 +23,8 @@ public class OwnerController {
 	
 	@Autowired 
 	IShowService showService;
+	@Autowired
+	IMovieService movieService;
 	
 	@PostMapping("/theatre/{theatreId}/movie/{movieId}/screen/{screenId}/addShow")
 	public ResponseEntity<?> addShow(@RequestBody Show show, @PathVariable int screenId, @PathVariable int theatreId, @PathVariable String movieId){
@@ -29,6 +33,12 @@ public class OwnerController {
 		System.out.println("date "+show.getShowDate());
 		System.out.println(show);
 		return ResponseEntity.ok(showService.addShow(show,screenId,theatreId,movieId));
+		
+	}
+	
+	@PostMapping("/addMovie")
+	public ResponseEntity<?> addMovie(@RequestBody Movie movie){
+		return ResponseEntity.ok(movieService.addMovie(movie));
 		
 	}
 
