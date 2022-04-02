@@ -2,6 +2,7 @@ package com.app.service;
 
 import java.util.List;
 
+import com.app.dto.ScreenDto;
 import com.app.dto.TheatreDto;
 import com.app.pojos.Screen;
 import com.app.pojos.Show;
@@ -14,5 +15,5 @@ public interface ITheatreService {
 	Show addShow(Show show, int theatreId);
 	List<TheatreDto> getAllTheatres();
 	List<TheatreDto> getAllTheatresByCity(String city);
-	List<Integer> getAllScreens();
+	List<ScreenDto> getAllScreens(int theatreId);
 }

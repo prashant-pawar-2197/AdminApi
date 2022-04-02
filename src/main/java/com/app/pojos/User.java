@@ -60,6 +60,14 @@ public class User extends BaseEntity{
 	private Role role;
 	
 	
+	//login constructor -- please na hataye
+	public User(Integer id,
+			@NotBlank(message = "email is mandatory") @Pattern(regexp = "^(.+)@(.+)$", message = "the email is invalid") String email,
+			@NotBlank(message = "password cannot be blank") @Pattern(regexp = "((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{5,20})", message = "Invalid password") String password) {
+		super(id);
+		this.email = email;
+		this.password = password;
+	}
 	@Override
 	public String toString() {
 		return "Register [firstName=" + firstName + ", lastname=" + lastName + ", dob=" + dob + ", gender=" + gender

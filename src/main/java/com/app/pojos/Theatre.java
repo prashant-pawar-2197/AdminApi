@@ -1,6 +1,6 @@
 package com.app.pojos;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +20,9 @@ import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +35,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @SQLDelete(sql = "UPDATE theatre_details SET status = 'INACTIVE' WHERE id=?", check=ResultCheckStyle.COUNT)
 @Where(clause = "status <> 'INACTIVE'")
+@JsonIgnoreProperties(value= {"screens"})
 public class Theatre extends BaseEntity {
 	@Column(name = "theatre_name", length = 30)
 	@NotEmpty(message = "theatre name cannot be empty")
@@ -60,8 +63,8 @@ public class Theatre extends BaseEntity {
 	private TheatreStatus status;
 	@Column(length = 30)
 	private String lastUpdatedBy;
-	@JsonFormat(pattern = "HH:mm:ss")
-	private LocalTime lastUpdated;
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	private LocalDateTime lastUpdated;
 	
 	
 	@Override
@@ -76,7 +79,16 @@ public class Theatre extends BaseEntity {
 	public void deleteTheatre() {
 		this.status = TheatreStatus.INACTIVE;
 	}
-
+	
+	public void addScreen(Screen screen) {
+		screens.add(screen);
+		screen.setTheatre(this);
+	}
+	
+	public void removeScreen(Screen screen) {
+		screens.remove(screen);
+		screen.setTheatre(null);
+	}
 	
 	
 }
