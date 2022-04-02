@@ -24,17 +24,10 @@ public class Screen extends BaseEntity{
 	@ManyToOne
 	@JoinColumn(name = "theatre_id")
 	private Theatre theatre;
-	@NotNull(message = "please enter the number of rows")
-	private int screenRows;
-	@NotNull(message = "please enter the number of columns")
-	private int screenColumns;
+	@Column(name="screen_status")
+	private String screenStatus;
 	@Override
 	public String toString() {
-		return "Screen [screenNumber=" + screenNumber + ", theatre=" + theatre + ", screenRows=" + screenRows
-				+ ", screenColumns=" + screenColumns + "]";
+		return "Screen [screenNumber=" + screenNumber + ", theatre=" + theatre +"]";
 	}
-
-
-	
-	
 }

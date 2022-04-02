@@ -23,7 +23,6 @@ public class UserServiceImpl implements IUserService {
 		}catch(DataIntegrityViolationException e) {
 			throw new RuntimeException("Email Already Exists");
 		}
-		
 	}
 
 	@Override
