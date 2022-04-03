@@ -1,8 +1,11 @@
 package com.app.dao;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -26,5 +29,8 @@ public interface ShowRepository extends JpaRepository<Show, Integer>{
 			+ "where sc.theatre.id=:theatreId")
 	List<OngoingShowDto> getAllShows(@Param(value="theatreId") int theatreId);
 	
+	@Modifying
+	@Query(value = "update show_details set diamond_price= ?1, end_time=?2, gold_price=?3, show_status=?4, silver_price=?5, start_time=?6, show_date=?7, screen_id=?8 where id=?9 ", nativeQuery=true)
+	int updateShow(int diamondPrice, LocalTime endTime , int goldPrice, String showStatus , int silverPrice , LocalTime startTime , LocalDate showDate,int screenId, int showId);
 
 }

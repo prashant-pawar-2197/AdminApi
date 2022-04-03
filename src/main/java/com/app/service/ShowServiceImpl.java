@@ -13,6 +13,7 @@ import com.app.dao.ScreenRepository;
 import com.app.dao.ShowRepository;
 import com.app.dao.TheatreRepository;
 import com.app.dto.OngoingShowDto;
+import com.app.dto.UpdateShowDto;
 import com.app.pojos.Movie;
 import com.app.pojos.Screen;
 import com.app.pojos.Show;
@@ -71,6 +72,11 @@ public class ShowServiceImpl implements IShowService {
 			throw new RuntimeException("There are no current ongoing shows to display");
 		}
 		return shows;
+	}
+	@Override
+	public int updateShow(UpdateShowDto show) {
+		System.out.println("reached here");
+		return showRepo.updateShow(show.getDiamondPrice(), show.getEndTime(), show.getGoldPrice(), show.getShowStatus().toString(), show.getSilverPrice(), show.getStartTime(), show.getShowDate(),show.getScreenId(), show.getId());
 	}
 
 }

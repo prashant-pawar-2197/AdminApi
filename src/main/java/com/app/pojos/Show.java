@@ -63,6 +63,5 @@ public class Show extends BaseEntity{
 				+ ", screen=" + screen + ", showStatus=" + showStatus + ", goldPrice=" + goldPrice + ", diamondPrice="
 				+ diamondPrice + ", silverPrice=" + silverPrice + "]";
 	}
-	
 
 }
