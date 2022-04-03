@@ -12,6 +12,7 @@ import com.app.dao.MovieRepository;
 import com.app.dao.ScreenRepository;
 import com.app.dao.ShowRepository;
 import com.app.dao.TheatreRepository;
+import com.app.dto.OngoingShowDto;
 import com.app.pojos.Movie;
 import com.app.pojos.Screen;
 import com.app.pojos.Show;
@@ -62,6 +63,14 @@ public class ShowServiceImpl implements IShowService {
 			throw new RuntimeException("Show did not mount");
 		}
 //		
+	}
+	@Override
+	public List<OngoingShowDto> getAllShows(int theatreId) {
+		List <OngoingShowDto> shows = showRepo.getAllShows(theatreId);
+		if (shows.isEmpty()) {
+			throw new RuntimeException("There are no current ongoing shows to display");
+		}
+		return shows;
 	}
 
 }
