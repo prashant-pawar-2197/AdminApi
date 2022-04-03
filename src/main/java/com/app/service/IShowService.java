@@ -12,4 +12,5 @@ public interface IShowService {
 	//get all movies in particular theatre
 	public List<OngoingShowDto> getAllShows(int theatreId);
 	public int updateShow(UpdateShowDto show);
+	public int deleteShow(int id);
 }
