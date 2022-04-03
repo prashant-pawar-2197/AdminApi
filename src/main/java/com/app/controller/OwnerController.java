@@ -37,6 +37,7 @@ public class OwnerController {
 	@GetMapping("/theatre/{theatreId}/ongoingShow")
 	public ResponseEntity<?> ongoingShow(@PathVariable int theatreId){
 		return ResponseEntity.ok(showService.getAllShows(theatreId));
+	}
 	
 	@PostMapping("/updateScreen/{status}/{id}")
 	public ResponseEntity<?> updateScreenStatuses(@PathVariable String status,@PathVariable int id){
@@ -47,5 +48,9 @@ public class OwnerController {
 	public ResponseEntity<?> addMovie(@RequestBody Movie movie){
 		return ResponseEntity.ok(movieService.addMovie(movie));
 	}
-
+	
+	@GetMapping("/getShow/{showId}")
+	public ResponseEntity<?> getShow(@PathVariable int showId){
+		return ResponseEntity.ok(showService.getShowbyId(showId));
+	}
 }

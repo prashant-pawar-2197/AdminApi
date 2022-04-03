@@ -3,6 +3,8 @@ package com.app.dto;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.app.pojos.ShowStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,5 +21,6 @@ public class OngoingShowDto {
 	private LocalDate showDate;
 	private String title;
 	private String poster;
+	private ShowStatus showStatus;
 	
 }

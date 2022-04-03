@@ -13,6 +13,7 @@ import com.app.dao.ScreenRepository;
 import com.app.dao.ShowRepository;
 import com.app.dao.TheatreRepository;
 import com.app.dto.OngoingShowDto;
+import com.app.dto.UpdateShowDto;
 import com.app.pojos.Movie;
 import com.app.pojos.Screen;
 import com.app.pojos.Show;
@@ -41,17 +42,12 @@ public class ShowServiceImpl implements IShowService {
 			Theatre theatre = theatreRepo.findById(theatreId).orElseThrow(()->new RuntimeException("Theatre not found"));
 			theatre.addScreen(screen);
 			Movie movie = movieRepo.findById(movieId).orElseThrow(()->new RuntimeException("Movie not found"));
-			System.out.println("Movie : "+movie);
 			show.setMovie(movie);
-			System.out.println("screen :" + show.getScreen());
-			System.out.println("screenId :"+show.getScreen().getId());
 			// see if the timing are free on that screen
 			List<Show> shows = showRepo.findByScreen(screen);
 			// show time must not match with any show
 			
 			//show timings
-			System.out.println("My Show start time : "+show.getStartTime());
-			System.out.println("My Show end time : "+show.getEndTime());
 			Iterator itr = shows.iterator();
 			while (itr.hasNext()) {
 				Show temp = (Show) itr.next();
@@ -75,6 +71,11 @@ public class ShowServiceImpl implements IShowService {
 			throw new RuntimeException("There are no current ongoing shows to display");
 		}
 		return shows;
+	}
+	@Override
+	public UpdateShowDto getShowbyId(int showId) {
+		return showRepo.getShowById(showId);
+	
 	}
 
 }
