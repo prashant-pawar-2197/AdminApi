@@ -43,8 +43,7 @@ public class ShowServiceImpl implements IShowService {
 			Theatre theatre = theatreRepo.findById(theatreId)
 					.orElseThrow(() -> new RuntimeException("Theatre not found"));
 			theatre.addScreen(screen);
-			Movie movie = movieRepo.findById(movieId).orElseThrow(() -> new RuntimeException("Movie not found"));
-			System.out.println("Movie : " + movie);
+			Movie movie = movieRepo.findById(movieId).orElseThrow(()->new RuntimeException("Movie not found"));
 			show.setMovie(movie);
 			// see if the timing are free on that screen
 			List<Show> shows = showRepo.findByScreen(screen);
@@ -78,6 +77,10 @@ public class ShowServiceImpl implements IShowService {
 	}
 
 	@Override
+	public UpdateShowDto getShowbyId(int showId) {
+		return showRepo.getShowById(showId);
+	}
+	
 	public int updateShow(UpdateShowDto show) {
 		System.out.println("reached here");
 		return showRepo.updateShow(show.getDiamondPrice(), show.getEndTime(), show.getGoldPrice(),

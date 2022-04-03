@@ -54,6 +54,10 @@ public class OwnerController {
 		return ResponseEntity.ok(movieService.addMovie(movie));
 	}
 	
+	@GetMapping("/getShow/{showId}")
+	public ResponseEntity<?> getShow(@PathVariable int showId){
+		return ResponseEntity.ok(showService.getShowbyId(showId));
+	}
 	@PostMapping("/updateShow")
 	public ResponseEntity<?> updateShow(@RequestBody UpdateShowDto show){
 		System.out.println(show);
