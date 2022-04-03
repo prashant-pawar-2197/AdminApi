@@ -33,7 +33,7 @@ public interface ShowRepository extends JpaRepository<Show, Integer>{
 
 	
 	//to update a show we need some fields to update --> updateShowDto
-	@Query(value="select new com.app.dto.updateShowDto(s.id,s.startTime,s.endTime,s.showStatus,s.goldPrice,s.diamondPrice,s.silverPrice,s.showDate) from Show s "
+	@Query(value="select new com.app.dto.UpdateShowDto(s.id,s.startTime,s.endTime,s.screen.id,s.showStatus,s.goldPrice,s.diamondPrice,s.silverPrice,s.showDate) from Show s "
 			+ "where s.id=:showId")
 	UpdateShowDto getShowById(@Param(value="showId") int showId);
 
