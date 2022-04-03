@@ -75,6 +75,7 @@ public class ShowServiceImpl implements IShowService {
 	@Override
 	public UpdateShowDto getShowbyId(int showId) {
 		return showRepo.getShowById(showId);
+	}
 	
 	public int updateShow(UpdateShowDto show) {
 		System.out.println("reached here");

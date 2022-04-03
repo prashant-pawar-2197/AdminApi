@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.app.dto.OngoingShowDto;
-import com.app.dto.updateShowDto;
+import com.app.dto.UpdateShowDto;
 import com.app.pojos.Screen;
 import com.app.pojos.Show;
 
@@ -30,16 +30,16 @@ public interface ShowRepository extends JpaRepository<Show, Integer>{
 			+ "where sc.theatre.id=:theatreId")
 	List<OngoingShowDto> getAllShows(@Param(value="theatreId") int theatreId);
 	
-<<<<<<< HEAD
+
 	
 	//to update a show we need some fields to update --> updateShowDto
 	@Query(value="select new com.app.dto.updateShowDto(s.id,s.startTime,s.endTime,s.showStatus,s.goldPrice,s.diamondPrice,s.silverPrice,s.showDate) from Show s "
 			+ "where s.id=:showId")
 	UpdateShowDto getShowById(@Param(value="showId") int showId);
-=======
+
 	@Modifying
 	@Query(value = "update show_details set diamond_price= ?1, end_time=?2, gold_price=?3, show_status=?4, silver_price=?5, start_time=?6, show_date=?7, screen_id=?8 where id=?9 ", nativeQuery=true)
 	int updateShow(int diamondPrice, LocalTime endTime , int goldPrice, String showStatus , int silverPrice , LocalTime startTime , LocalDate showDate,int screenId, int showId);
 
->>>>>>> 851dc13d33bdf7adb715337c9ea546eacc6a50e8
+
 }
