@@ -37,6 +37,7 @@ public class OwnerController {
 	@GetMapping("/theatre/{theatreId}/ongoingShow")
 	public ResponseEntity<?> ongoingShow(@PathVariable int theatreId){
 		return ResponseEntity.ok(showService.getAllShows(theatreId));
+	}
 	
 	@PostMapping("/updateScreen/{status}/{id}")
 	public ResponseEntity<?> updateScreenStatuses(@PathVariable String status,@PathVariable int id){

@@ -44,7 +44,6 @@ public class ShowServiceImpl implements IShowService {
 			System.out.println("Movie : "+movie);
 			show.setMovie(movie);
 			System.out.println("screen :" + show.getScreen());
-			System.out.println("screenId :"+show.getScreen().getId());
 			// see if the timing are free on that screen
 			List<Show> shows = showRepo.findByScreen(screen);
 			// show time must not match with any show
