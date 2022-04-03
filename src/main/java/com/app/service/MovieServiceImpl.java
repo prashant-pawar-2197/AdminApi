@@ -17,6 +17,8 @@ public class MovieServiceImpl implements IMovieService {
 	
 	@Override
 	public Movie addMovie(Movie movie) {
+		if(movieRepo.existsById(movie.getImdbId()))
+			return movieRepo.findById(movie.getImdbId()).get();
 		return movieRepo.save(movie);
 	}
 

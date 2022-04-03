@@ -76,6 +76,9 @@ public class ShowServiceImpl implements IShowService {
 	public UpdateShowDto getShowbyId(int showId) {
 		return showRepo.getShowById(showId);
 	
+	public int updateShow(UpdateShowDto show) {
+		System.out.println("reached here");
+		return showRepo.updateShow(show.getDiamondPrice(), show.getEndTime(), show.getGoldPrice(), show.getShowStatus().toString(), show.getSilverPrice(), show.getStartTime(), show.getShowDate(),show.getScreenId(), show.getId());
 	}
 
 }

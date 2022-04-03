@@ -15,4 +15,5 @@ public interface IShowService {
 	//to update a show details
 	
 	public UpdateShowDto getShowbyId(int showId);
+	public int updateShow(UpdateShowDto show);
 }
