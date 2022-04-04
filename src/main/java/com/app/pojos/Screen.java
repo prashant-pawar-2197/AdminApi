@@ -7,6 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +17,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
 public class Screen extends BaseEntity{
 	
 	@NotNull
@@ -26,6 +28,9 @@ public class Screen extends BaseEntity{
 	private Theatre theatre;
 	@Column(name="screen_status")
 	private String screenStatus;
+	
+	
+	
 	@Override
 	public String toString() {
 		return "Screen [screenNumber=" + screenNumber + ", theatre=" + theatre +"]";

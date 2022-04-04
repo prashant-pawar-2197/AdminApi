@@ -48,8 +48,6 @@ public class TheatreServiceImpl implements ITheatreService {
 	}
 
 
-
-
 	
 	@Override
 	public List<TheatreDto> getAllTheatres(){
@@ -64,6 +62,16 @@ public class TheatreServiceImpl implements ITheatreService {
 	@Override
 	public List<ScreenDto> getAllScreens(int theatreId) {
 	return theatreRepo.getAllScreenNumbers(theatreId);
+	}
+
+	@Override
+	public void addAllScreens(int theatreId) {
+		// TODO Auto-generated method stub
+		Theatre theatre = theatreRepo.findById(theatreId).orElseThrow(() -> new RuntimeException("Theatre with theatre id: " + theatreId + "doesn't exist"));
+		for(int i = 1; i <= theatre.getNumberOfScreens(); i++) {
+			Screen screen = new Screen(i, theatre, "ACTIVE");
+			screenRepo.save(screen);
+		}
 	}
 	
 	

@@ -14,4 +14,5 @@ public interface ITheatreService {
 	List<TheatreDto> getAllTheatres();
 	List<TheatreDto> getAllTheatresByCity(String city);
 	List<ScreenDto> getAllScreens(int theatreId);
+	void addAllScreens(int theatreId);
 }
