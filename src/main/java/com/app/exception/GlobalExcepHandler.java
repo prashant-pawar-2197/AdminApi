@@ -27,7 +27,7 @@ public class GlobalExcepHandler extends ResponseEntityExceptionHandler {
 				return ResponseEntity.badRequest().body(map);
 	}
 	
-	@ExceptionHandler
+	@ExceptionHandler(RuntimeException.class)
 	public ResponseEntity<Object> GlobalRuntimeExceptionHandler(RuntimeException ex){
 		ErrorResponse resp=new ErrorResponse(ex.getMessage(),LocalDateTime.now());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(resp);

@@ -42,4 +42,5 @@ public interface ShowRepository extends JpaRepository<Show, Integer>{
 	int updateShow(int diamondPrice, LocalTime endTime , int goldPrice, String showStatus , int silverPrice , LocalTime startTime , LocalDate showDate,int screens, int showId);
 
 
+	
 }
