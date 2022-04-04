@@ -1,12 +1,18 @@
 package com.app.pojos;
 
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -48,6 +54,10 @@ public class Movie {
 	private String backdropPath;
 	@Id
 	private String imdbId;
+	@NotNull(message = "date added cannot be null")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate dateAdded;
+	
 	@Override
 	public String toString() {
 		return "Movie [ratings=" + ratings + ", title=" + title + ", plot=" + plot + ", actors=" + actors

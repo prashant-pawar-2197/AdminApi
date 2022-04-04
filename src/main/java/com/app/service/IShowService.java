@@ -17,4 +17,6 @@ public interface IShowService {
 	public UpdateShowDto getShowbyId(int showId);
 	public int updateShow(UpdateShowDto show);
 	public int deleteShow(int id);
+	
+
 }

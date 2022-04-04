@@ -1,5 +1,7 @@
 package com.app.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +22,18 @@ public class MovieServiceImpl implements IMovieService {
 		if(movieRepo.existsById(movie.getImdbId()))
 			return movieRepo.findById(movie.getImdbId()).get();
 		return movieRepo.save(movie);
+	}
+
+	//getting the latest movies to show in the home page
+	@Override
+	public List<Movie> getLatestMovies() {
+		// TODO Auto-generated method stub
+		return movieRepo.findTop6ByOrderByDateAddedDesc();
+	}
+
+	@Override
+	public Movie getMovie(String imdbId) {
+		// TODO Auto-generated method stub
+		return movieRepo.findById(imdbId).orElseThrow(() -> new RuntimeException("Movie not found! Sorry"));
 	}
 }
