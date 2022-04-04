@@ -89,13 +89,11 @@ public class ShowServiceImpl implements IShowService {
 	}
 
 	@Override
-	public int deleteShow(int id) {
-		Show show = showRepo.findById(id).get();
-		if (show == null)
-			return 0;
-		else {
+	public void deleteShow(int id) {
+		if (showRepo.existsById(id)) {
 			showRepo.deleteById(id);
-			return 1;
+		}else {
+			throw new RuntimeException("Deletion of show failed");
 		}
 	}
 
