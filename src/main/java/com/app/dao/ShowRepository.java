@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.app.dto.OngoingShowDto;
+import com.app.dto.ShowTimeDto;
 import com.app.dto.UpdateShowDto;
 import com.app.pojos.Screen;
 import com.app.pojos.Show;
@@ -41,6 +42,25 @@ public interface ShowRepository extends JpaRepository<Show, Integer>{
 	@Query(value = "update show_details set diamond_price= ?1, end_time=?2, gold_price=?3, show_status=?4, silver_price=?5, start_time=?6, show_date=?7, screen_id=?8 where id=?9 ", nativeQuery=true)
 	int updateShow(int diamondPrice, LocalTime endTime , int goldPrice, String showStatus , int silverPrice , LocalTime startTime , LocalDate showDate,int screenId, int showId);
 
-
+	@Query(value="select * from show_details where screen_id in (select id from screen_details where theatre_id in (select id from theatre_details where theatre_city =?1)) and movie_id=?2", nativeQuery = true)
+	List<Show> getShowsByCity(String city, String movieId);
+	
+	//http://localhost:8080/api/user/getShowsByCity/Pune/tt10872600
+	
+	@Query(value="select new com.app.dto.ShowTimeDto "
+			+ "(m.imdbId, sc.id,t.id,s.showDate,s.startTime,t.theatreName) from Show s "
+			+ "join s.screen sc "
+			+ "join s.movie m "
+			
+			+ "join sc.theatre t "
+			+ "where s.showDate = :showDate and t.theatreCity =:city and m.imdbId=:movieId")
+	List<ShowTimeDto> getShowsByDate(@Param(value="showDate") LocalDate showDate,@Param(value="city") String city,@Param(value="movieId")  String movieId);
+	//	@Query(value="select * from show_details as shd "
+//			+ "join screen_details scd on shd.screen_id=scd.id "
+//			+ "join movie_details as md on shd.movie_id=md.imdb_id "
+//			+ "join theatre_details as td on td.id=scd.theatre_id "
+//			+ "where shd.show_date=?1 and td.theatre_city=?2 and shd.movie_id=?3", nativeQuery = true)
+//	List<ShowTimeDto> getShowsByDate(LocalDate showDate,String city, String movieId);
+//	
 	
 }
