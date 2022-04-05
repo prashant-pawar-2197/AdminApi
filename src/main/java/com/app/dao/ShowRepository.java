@@ -48,7 +48,7 @@ public interface ShowRepository extends JpaRepository<Show, Integer>{
 	//http://localhost:8080/api/user/getShowsByCity/Pune/tt10872600
 	
 	@Query(value="select new com.app.dto.ShowTimeDto "
-			+ "(m.imdbId, sc.id,t.id,s.showDate,s.startTime,t.theatreName) from Show s "
+			+ "(m.imdbId, sc.id,t.id,s.showDate,s.startTime,t.theatreName,s.id) from Show s "
 			+ "join s.screen sc "
 			+ "join s.movie m "
 			

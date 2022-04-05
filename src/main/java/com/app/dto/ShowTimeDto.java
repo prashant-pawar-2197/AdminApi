@@ -26,4 +26,6 @@ public class ShowTimeDto {
 	
 	private String theatreName;
 	
+	private int showId;
+	
 }
