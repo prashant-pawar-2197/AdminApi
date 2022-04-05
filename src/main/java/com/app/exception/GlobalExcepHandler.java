@@ -28,9 +28,9 @@ public class GlobalExcepHandler extends ResponseEntityExceptionHandler {
 	}
 	
 	@ExceptionHandler(RuntimeException.class)
-	public ResponseEntity<Object> GlobalRuntimeExceptionHandler(RuntimeException ex){
+	public ResponseEntity<Object> GlobalRuntimeExceptionHandler(RuntimeException ex, HttpHeaders headers, HttpStatus status, WebRequest request){
 		ErrorResponse resp=new ErrorResponse(ex.getMessage(),LocalDateTime.now());
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(resp);
+		return ResponseEntity.internalServerError().body(resp);
 	}
 	
 }
