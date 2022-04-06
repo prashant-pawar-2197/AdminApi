@@ -90,7 +90,7 @@ public class User extends BaseEntity{
 		this.email = email;
 		this.phone = phone;
 		this.password = password;
-		this.role = role;
+		this.role = Role.USER;
 	}
 	
 	
