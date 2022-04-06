@@ -54,8 +54,8 @@ public class User extends BaseEntity{
 	@NotBlank(message="password cannot be blank")
 	@Pattern(regexp="((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{5,20})",message = "Invalid password")
 	private String password;
-	@OneToMany(mappedBy="user", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Booking> bookings = new ArrayList<>();
+//	@OneToMany(mappedBy="user", cascade = CascadeType.ALL, orphanRemoval = true)
+//	private List<Booking> bookings = new ArrayList<>();
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	

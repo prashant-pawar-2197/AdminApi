@@ -1,5 +1,5 @@
 package com.app.pojos;
 
 public enum Role {
-	ADMIN,THEATREOWNER;
+	ADMIN,THEATREOWNER,USER;
 }
