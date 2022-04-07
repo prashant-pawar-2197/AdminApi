@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.service.IMovieService;
 import com.app.service.IShowService;
+import com.app.service.ITheatreService;
 
 @RestController
 @RequestMapping("/api/user")
@@ -25,6 +26,8 @@ public class UserController {
 	private IMovieService movieService;
 	@Autowired
 	private IShowService showService;
+	@Autowired
+	private ITheatreService theatreService;
 	
 	
 	@GetMapping("/nowShowing")
@@ -47,5 +50,16 @@ public class UserController {
 		public ResponseEntity<?> getShowsByDate(@PathVariable String location, @PathVariable String movieId,@PathVariable String date) {
 		return new ResponseEntity<>(showService.getShowsByDate(LocalDate.parse(date,DateTimeFormatter.ofPattern("yyyy-MM-dd")), location, movieId),HttpStatus.OK);
 	}
+	
+	@GetMapping("/theatre/{theatreId}/date/{date}")
+		public ResponseEntity<?> getAllShowsByTheatre(@PathVariable int theatreId,@PathVariable String date){
+		return new ResponseEntity<>(showService.getAllShowsByTheatre(theatreId,LocalDate.parse(date,DateTimeFormatter.ofPattern("yyyy-MM-dd"))),HttpStatus.OK);
+	}
+	
+	@GetMapping("/theatre/{theatreId}")
+		public ResponseEntity<?> getTheatreDetailsById(@PathVariable int theatreId){
+		return new ResponseEntity<>(theatreService.getTheatreById(theatreId),HttpStatus.OK);
+	}
+	
 	
 }

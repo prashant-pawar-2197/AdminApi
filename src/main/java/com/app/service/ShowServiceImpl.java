@@ -122,6 +122,17 @@ public class ShowServiceImpl implements IShowService {
 		
 	}
 
+	@Override
+	public List<OngoingShowDto> getAllShowsByTheatre(int theatreId, LocalDate showDate) {
+		List<OngoingShowDto> shows= showRepo.getAllShowsByTheatreByDate(theatreId,showDate);
+		
+		if(shows.isEmpty()) {
+			throw new RuntimeException("No shows found");
+		}
+		
+		return shows;
+	}
+
 
 	
 

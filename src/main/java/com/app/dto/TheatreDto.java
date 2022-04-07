@@ -1,35 +1,25 @@
 package com.app.dto;
 
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class TheatreDto {
+	
 	
 	private Integer id;
 	private String theatreName;
 	private String theatreState;
 	private String theatreCity;
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
+	private String pincode;
+	public TheatreDto(Integer id, String theatreName, String theatreState, String theatreCity, String pincode) {
+		super();
 		this.id = id;
-	}
-	public String getTheatreName() {
-		return theatreName;
-	}
-	public void setTheatreName(String theatreName) {
 		this.theatreName = theatreName;
-	}
-	public String getTheatreState() {
-		return theatreState;
-	}
-	public void setTheatreState(String theatreState) {
 		this.theatreState = theatreState;
-	}
-	public String getTheatreCity() {
-		return theatreCity;
-	}
-	public void setTheatreCity(String theatreCity) {
 		this.theatreCity = theatreCity;
+		this.pincode = pincode;
 	}
 	public TheatreDto(Integer id, String theatreName, String theatreState, String theatreCity) {
 		super();
@@ -43,6 +33,8 @@ public class TheatreDto {
 		this.id = id;
 		this.theatreName = theatreName;
 	}
+
+
 	
 	
 	

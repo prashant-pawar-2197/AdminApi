@@ -23,5 +23,6 @@ public interface IShowService {
 	public int deleteShow(int id);
 	public List<Show> getShowByCity(String city, String movieId);
 	public List<ShowTimeDto> getShowsByDate( LocalDate date, String city,String movieId );
+	public List<OngoingShowDto> getAllShowsByTheatre(int theatreId,LocalDate showDate);
 
 }
