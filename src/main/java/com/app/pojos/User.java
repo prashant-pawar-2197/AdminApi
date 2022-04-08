@@ -42,7 +42,7 @@ public class User extends BaseEntity{
 	@Column(name="gender", length = 20)
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
-	@Column(name="email", unique=true, length = 20)
+	@Column(name="email", unique=true, length = 50)
 	@NotBlank(message = "email is mandatory")
 	@Pattern(regexp = "^(.+)@(.+)$", message = "the email is invalid")
 	private String email;
