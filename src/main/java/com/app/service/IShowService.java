@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.repository.query.Param;
 
+import com.app.dto.BookShowDto;
 import com.app.dto.OngoingShowDto;
 import com.app.dto.ShowTimeDto;
 import com.app.dto.UpdateShowDto;
@@ -24,5 +25,7 @@ public interface IShowService {
 	public List<Show> getShowByCity(String city, String movieId);
 	public List<ShowTimeDto> getShowsByDate( LocalDate date, String city,String movieId );
 	public List<OngoingShowDto> getAllShowsByTheatre(int theatreId,LocalDate showDate);
+	public BookShowDto getShowDetailsByShowId(int showId);
+	public String getImdbIdFromShowId(int showId);
 
 }

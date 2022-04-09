@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 
 import com.app.dao.ScreenRepository;
 import com.app.dao.TheatreRepository;
+import com.app.dao.UserRepository;
 import com.app.dto.ScreenDto;
 import com.app.dto.TheatreDto;
 import com.app.exception.AdminSqlExcep;
 import com.app.pojos.Screen;
 import com.app.pojos.Theatre;
+import com.app.pojos.User;
 
 @Service
 @Transactional
@@ -22,11 +24,15 @@ public class TheatreServiceImpl implements ITheatreService {
 	private TheatreRepository theatreRepo;
 	@Autowired
 	private ScreenRepository screenRepo;
+	@Autowired
+	private UserRepository userRepo;
 
 	
 	
 	@Override
-	public Theatre addTheatre(Theatre theatre) {
+	public Theatre addTheatre(Theatre theatre, String ownerEmail) {
+		User owner = userRepo.findByEmail(ownerEmail).orElseThrow(() -> new RuntimeException("Owner does not exist"));
+		theatre.setUser(owner);
 		return theatreRepo.save(theatre);
 	}
 
