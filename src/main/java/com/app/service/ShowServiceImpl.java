@@ -13,6 +13,7 @@ import com.app.dao.MovieRepository;
 import com.app.dao.ScreenRepository;
 import com.app.dao.ShowRepository;
 import com.app.dao.TheatreRepository;
+import com.app.dto.BookShowDto;
 import com.app.dto.OngoingShowDto;
 import com.app.dto.ShowTimeDto;
 import com.app.dto.UpdateShowDto;
@@ -133,6 +134,24 @@ public class ShowServiceImpl implements IShowService {
 		return shows;
 	}
 
+	@Override
+	public BookShowDto getShowDetailsByShowId(int showId) {
+		BookShowDto showDetails = showRepo.getShowDetailsByShowId(showId);
+		
+		if(showDetails==null) {
+			throw new RuntimeException("No shows found");
+		}
+		
+		return showDetails;
+	}
+	
+	public String getImdbIdFromShowId(int showId) {
+		String imdbId = showRepo.getImdbIdFromShowId(showId);
+		if(imdbId==null) {
+			throw new RuntimeException("Imdb Id not Found");
+		}
+		return imdbId;
+	}
 
 	
 

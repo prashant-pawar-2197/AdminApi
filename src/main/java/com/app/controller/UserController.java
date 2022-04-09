@@ -61,5 +61,14 @@ public class UserController {
 		return new ResponseEntity<>(theatreService.getTheatreById(theatreId),HttpStatus.OK);
 	}
 	
+	@GetMapping("/booking/ticket/{showId}")
+	public ResponseEntity<?> getBookingTicketDetails(@PathVariable int showId){
+		return new ResponseEntity<>(showService.getShowDetailsByShowId(showId),HttpStatus.OK);
+	}
+	
+	@GetMapping("/imdbId/{showId}")
+	public ResponseEntity<?> getImdbIdFromShowID(@PathVariable int showId){
+		return new ResponseEntity<>(showService.getImdbIdFromShowId(showId),HttpStatus.OK);
+	}
 	
 }

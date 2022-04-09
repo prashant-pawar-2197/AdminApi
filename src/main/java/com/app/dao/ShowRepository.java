@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.app.dto.BookShowDto;
 import com.app.dto.OngoingShowDto;
 import com.app.dto.ShowTimeDto;
 import com.app.dto.UpdateShowDto;
@@ -61,9 +62,20 @@ public interface ShowRepository extends JpaRepository<Show, Integer>{
 //			+ "where shd.show_date=?1 and td.theatre_city=?2 and shd.movie_id=?3", nativeQuery = true)
 //	List<ShowTimeDto> getShowsByDate(LocalDate showDate,String city, String movieId);
 //	
-	@Query(value ="select new com.app.dto.OngoingShowDto(s.id,s.endTime,s.startTime,s.showDate,m.title,m.poster,s.showStatus) from Show s "
+	@Query(value ="select new com.app.dto.OngoingShowDto(s.id,s.endTime,s.startTime,s.showDate, m.title,m.poster, s.showStatus) from Show s "
 			+ "join s.movie m "
 			+ "join s.screen sc "
 			+ "where sc.theatre.id=:theatreId and s.showDate=:showDate")
 	List<OngoingShowDto> getAllShowsByTheatreByDate(@Param(value="theatreId") int theatreId, @Param(value="showDate") LocalDate showDate);
+	
+	@Query(value="select new com.app.dto.BookShowDto(sh.id, t.theatreName, t.theatreCity, md.title, sc.screenNumber, sh.startTime, md.language, md.rated, sh.showDate) "
+			+ "from Show sh "
+			+ "join sh.movie md "
+			+ "join sh.screen sc "
+			+ "join sc.theatre t "
+			+ "where sh.id=:showId")
+	BookShowDto getShowDetailsByShowId(@Param(value="showId")int showId);
+	
+	@Query(value="select movie_id from show_details where id = ?1",nativeQuery = true)
+	String getImdbIdFromShowId(int showID);
 }
