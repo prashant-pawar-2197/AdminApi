@@ -42,7 +42,7 @@ public class User extends BaseEntity{
 	@Column(name="gender", length = 20)
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
-	@Column(name="email", unique=true, length = 20)
+	@Column(name="email", unique=true, length = 50)
 	@NotBlank(message = "email is mandatory")
 	@Pattern(regexp = "^(.+)@(.+)$", message = "the email is invalid")
 	private String email;
@@ -54,8 +54,6 @@ public class User extends BaseEntity{
 	@NotBlank(message="password cannot be blank")
 	@Pattern(regexp="((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{5,20})",message = "Invalid password")
 	private String password;
-//	@OneToMany(mappedBy="user", cascade = CascadeType.ALL, orphanRemoval = true)
-//	private List<Booking> bookings = new ArrayList<>();
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
@@ -90,7 +88,7 @@ public class User extends BaseEntity{
 		this.email = email;
 		this.phone = phone;
 		this.password = password;
-		this.role = Role.USER;
+		this.role = role;
 	}
 	
 	

@@ -1,5 +1,6 @@
 package com.app.service;
 
+import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import com.app.dao.ScreenRepository;
 import com.app.dao.ShowRepository;
 import com.app.dao.TheatreRepository;
 import com.app.dto.OngoingShowDto;
+import com.app.dto.ShowTimeDto;
 import com.app.dto.UpdateShowDto;
 import com.app.pojos.Movie;
 import com.app.pojos.Screen;
@@ -78,8 +80,22 @@ public class ShowServiceImpl implements IShowService {
 	}
 
 	@Override
+	public List<Show> getShowByCity(String city, String movieId) {
+		List<Show> shows = showRepo.getShowsByCity(city, movieId);
+		if(shows.isEmpty()) {
+			throw new RuntimeException("No shows found");
+		}
+		
+		return shows;
+	}
+
+	
+	
+	
+	@Override
 	public UpdateShowDto getShowbyId(int showId) {
 		return showRepo.getShowById(showId);
+		
 	}
 	
 	public int updateShow(UpdateShowDto show) {
@@ -97,6 +113,25 @@ public class ShowServiceImpl implements IShowService {
 			throw new RuntimeException("Deletion of show failed");
 		}
 	}
+
+	@Override
+	public List<ShowTimeDto> getShowsByDate(LocalDate date, String city, String movieId) {
+		
+		return showRepo.getShowsByDate(date, city, movieId);
+		
+	}
+
+	@Override
+	public List<OngoingShowDto> getAllShowsByTheatre(int theatreId, LocalDate showDate) {
+		List<OngoingShowDto> shows= showRepo.getAllShowsByTheatreByDate(theatreId,showDate);
+		
+		if(shows.isEmpty()) {
+			throw new RuntimeException("No shows found");
+		}
+		
+		return shows;
+	}
+
 
 	
 

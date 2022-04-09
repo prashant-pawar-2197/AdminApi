@@ -73,6 +73,15 @@ public class TheatreServiceImpl implements ITheatreService {
 			screenRepo.save(screen);
 		}
 	}
+
+	@Override
+	public TheatreDto getTheatreById(int theatreId) {
+		
+		return theatreRepo.getMyTheatreById(theatreId);
+	}
+	
+	
+	
 	
 	
 

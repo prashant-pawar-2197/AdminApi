@@ -18,4 +18,7 @@ public interface TheatreRepository extends JpaRepository<Theatre, Integer> {
 	
 	@Query("SELECT new com.app.dto.ScreenDto(t.id,t.screenStatus, t.screenNumber, t.theatre.id) from Screen t where t.theatre.id=?1")
 	List<ScreenDto> getAllScreenNumbers(int theatreId);
+	
+	@Query( "SELECT new com.app.dto.TheatreDto(t.id, t.theatreName, t.theatreState, t.theatreCity, t.theatrePincode) from Theatre t where t.id=?1")
+	TheatreDto getMyTheatreById(int theatreId);
 }
