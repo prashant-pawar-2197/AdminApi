@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.service.IBookedSeatsService;
 import com.app.service.IMovieService;
 import com.app.service.IShowService;
 import com.app.service.ITheatreService;
@@ -28,7 +29,8 @@ public class UserController {
 	private IShowService showService;
 	@Autowired
 	private ITheatreService theatreService;
-	
+	@Autowired
+	private IBookedSeatsService bookSeatsService;
 	
 	@GetMapping("/nowShowing")
 	public ResponseEntity<?> getNowShowing(){
@@ -61,5 +63,8 @@ public class UserController {
 		return new ResponseEntity<>(theatreService.getTheatreById(theatreId),HttpStatus.OK);
 	}
 	
-	
+	@GetMapping("/getBookedSeats/{showId}")
+	public ResponseEntity<?> getBookedSeats(@PathVariable int showId){
+		return new ResponseEntity<>(bookSeatsService.getBookedSeats(showId), HttpStatus.OK);
+	}
 }
