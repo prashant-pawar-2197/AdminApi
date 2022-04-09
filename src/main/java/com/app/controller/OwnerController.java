@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,13 +59,19 @@ public class OwnerController {
 	public ResponseEntity<?> getShow(@PathVariable int showId){
 		return ResponseEntity.ok(showService.getShowbyId(showId));
 	}
-	@PostMapping("/updateShow")
+	@PutMapping("/updateShow")
 	public ResponseEntity<?> updateShow(@RequestBody UpdateShowDto show){
 		System.out.println(show);
 		return new ResponseEntity<>(showService.updateShow(show),HttpStatus.OK);
 	}
 	@DeleteMapping("/deleteShow/{id}")
 	public ResponseEntity<?> deleteShow(@PathVariable int id){
-		return new ResponseEntity<>(showService.deleteShow(id),HttpStatus.OK);
+		showService.deleteShow(id);
+		return new ResponseEntity<>("Show Deleted Successfully",HttpStatus.OK);
+	}
+	
+	@GetMapping("/getNoOfScreens/{showId}")
+	public ResponseEntity<?> getNoOfScreens(@PathVariable int showId){
+		return ResponseEntity.ok(screenService.getScreenNumbersByShowId(showId));
 	}
 }

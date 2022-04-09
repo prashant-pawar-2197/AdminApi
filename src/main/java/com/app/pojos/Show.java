@@ -13,6 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -30,6 +33,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonIgnoreProperties(value= {"screens"})
+@SQLDelete(sql = "UPDATE show_details SET show_status = 'CANCELLED' WHERE id=?", check=ResultCheckStyle.COUNT)
+//@Where(clause = "show_status <> 'CANCELLED'")
 public class Show extends BaseEntity{
 
 	@NotNull(message = "Please Enter Start Time")

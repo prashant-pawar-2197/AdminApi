@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.dao.ScreenRepository;
+import com.app.dto.NumberOfScreensDto;
 
 @Service
 @Transactional
@@ -16,6 +17,12 @@ public class ScreenServiceImpl implements IScreenService {
 	@Override
 	public int updateScreenStatus(String status, int id) {
 		return screenRepo.updateScreenStatus(status, id);
+	}
+
+	@Override
+	public NumberOfScreensDto getScreenNumbersByShowId(int showId) {
+		return screenRepo.getScreenNumbersByShowId(showId);
+		 
 	}
 
 }

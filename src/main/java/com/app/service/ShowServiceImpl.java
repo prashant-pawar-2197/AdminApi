@@ -56,7 +56,8 @@ public class ShowServiceImpl implements IShowService {
 			Iterator itr = shows.iterator();
 			while (itr.hasNext()) {
 				Show temp = (Show) itr.next();
-				if ((temp.getEndTime().isBefore(show.getStartTime()) || show.getEndTime().isAfter(temp.getStartTime()))
+				if ((((show.getStartTime().isAfter(temp.getStartTime()))&&(show.getStartTime().isBefore(temp.getEndTime())))
+						||((show.getEndTime().isAfter(temp.getStartTime()))&&(show.getEndTime().isBefore(temp.getEndTime()))))
 						&& temp.getShowDate().isEqual(show.getShowDate())) {
 
 					throw new RuntimeException("Show already exist at this timing");
@@ -106,13 +107,11 @@ public class ShowServiceImpl implements IShowService {
 	}
 
 	@Override
-	public int deleteShow(int id) {
-		Show show = showRepo.findById(id).get();
-		if (show == null)
-			return 0;
-		else {
+	public void deleteShow(int id) {
+		if (showRepo.existsById(id)) {
 			showRepo.deleteById(id);
-			return 1;
+		}else {
+			throw new RuntimeException("Deletion of show failed");
 		}
 	}
 
