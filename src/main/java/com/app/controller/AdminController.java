@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.TheatreAndOwnerDto;
 import com.app.pojos.Screen;
-import com.app.pojos.Theatre;
 import com.app.service.ITheatreService;
 
 @RestController
@@ -26,11 +26,10 @@ public class AdminController {
 		private ITheatreService theatreService;
 		
 		@PostMapping("/addTheatre")
-		private ResponseEntity<?> addTheatre(@RequestBody @Valid Theatre theatre) {
-			System.out.println("reached add theatre");
-			theatreService.addTheatre(theatre);
-			return new ResponseEntity<>(theatre, HttpStatus.OK);
+		private ResponseEntity<?> addTheatre(@RequestBody @Valid TheatreAndOwnerDto theatreAndEmail ) {
+			return new ResponseEntity<>(theatreService.addTheatre(theatreAndEmail.getTheatre(), theatreAndEmail.getEmail()), HttpStatus.OK);
 		}
+		
 		@DeleteMapping("/removeTheatre/{id}")
 		private ResponseEntity<?> removeTheatre(@PathVariable int id)  {
 			theatreService.deleteTheatre(id);
