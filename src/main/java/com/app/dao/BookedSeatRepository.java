@@ -13,4 +13,5 @@ public interface BookedSeatRepository extends JpaRepository<BookedSeats, Integer
 	
 	@Query("select b.seatNumber from BookedSeats b where show.id=:showId")
 	public List<String> getBookedSeats(@Param(value="showId") int showId);
+	
 }
