@@ -2,6 +2,8 @@ package com.app.pojos;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -27,6 +29,9 @@ public class BookedSeats extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "booking_id", nullable=false)
 	private Booking booking;
+	@Enumerated(EnumType.STRING)
+	@Column(length=20)
+	private SeatStatus status;
 	@Override
 	public String toString() {
 		return "BookedSeats [seatNumber=" + seatNumber + ", show=" + show + ", booking=" + booking + "]";
