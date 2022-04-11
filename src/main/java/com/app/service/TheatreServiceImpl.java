@@ -65,6 +65,8 @@ public class TheatreServiceImpl implements ITheatreService {
 		return theatreRepo.findAllTheatresByCity(city);
 	}
 
+	
+	
 	@Override
 	public List<ScreenDto> getAllScreens(int theatreId) {
 	return theatreRepo.getAllScreenNumbers(theatreId);
@@ -87,7 +89,9 @@ public class TheatreServiceImpl implements ITheatreService {
 	}
 	
 	
-	
+	public List<Theatre> getTheatreByUserId(int userId){
+		return theatreRepo.getTheatreByUserId(userId);
+	}
 	
 	
 

@@ -56,6 +56,7 @@ public class AdminController {
 			return new ResponseEntity<>(theatreService.getAllTheatresByCity(city), HttpStatus.OK);
 		}
 		
+
 		
 		@GetMapping("/getScreenNos/{theatreId}")
 		private ResponseEntity<?> getAllScreenNos(@PathVariable int theatreId){

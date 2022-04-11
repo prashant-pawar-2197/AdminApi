@@ -26,4 +26,6 @@ public interface TheatreRepository extends JpaRepository<Theatre, Integer> {
 	@Modifying
 	@Query(value="update theatre_details set status ='INACTIVE' where id = ?1",nativeQuery = true)
 	int setTheatreInActive(int theatreId);
+	@Query("SELECT t FROM Theatre t WHERE t.user.id=?1")
+	List<Theatre> getTheatreByUserId(int userId);
 }
