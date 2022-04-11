@@ -21,6 +21,7 @@ public interface TheatreRepository extends JpaRepository<Theatre, Integer> {
 	
 	@Query( "SELECT new com.app.dto.TheatreDto(t.id, t.theatreName, t.theatreState, t.theatreCity, t.theatrePincode) from Theatre t where t.id=?1")
 	TheatreDto getMyTheatreById(int theatreId);
+	
 	@Query("SELECT t FROM Theatre t WHERE t.user.id=?1")
 	List<Theatre> getTheatreByUserId(int userId);
 }

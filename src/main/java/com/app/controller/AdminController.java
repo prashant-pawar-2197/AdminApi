@@ -57,10 +57,7 @@ public class AdminController {
 			return new ResponseEntity<>(theatreService.getAllTheatresByCity(city), HttpStatus.OK);
 		}
 		
-		@GetMapping("/getTheatreByUserId/{userId}")
-		private ResponseEntity<?> getTheatreByUserId(@PathVariable int userId){
-			return new ResponseEntity<>(theatreService.getTheatreByUserId(userId),HttpStatus.OK);
-		}
+
 		
 		@GetMapping("/getScreenNos/{theatreId}")
 		private ResponseEntity<?> getAllScreenNos(@PathVariable int theatreId){
