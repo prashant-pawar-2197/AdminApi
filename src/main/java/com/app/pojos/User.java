@@ -50,9 +50,9 @@ public class User extends BaseEntity{
 	@NotBlank(message="phone number is mandatory")
 	@Pattern(regexp="^[0-9]{10}$", message = "phone number not valid")
 	private String phone;
-	@Column(name="password", length= 21)
+	@Column(name="password", length= 255)
 	@NotBlank(message="password cannot be blank")
-	@Pattern(regexp="((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{5,20})",message = "Invalid password")
+	@Pattern(regexp="((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{5,255})",message = "Invalid password")
 	private String password;
 	@Enumerated(EnumType.STRING)
 	private Role role;

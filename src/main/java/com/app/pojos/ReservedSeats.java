@@ -17,7 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ReservedSeats {
+public class ReservedSeats extends BaseEntity{
 		private String seatNumber;
 		@ManyToOne
 		@JoinColumn(name = "show_id")
