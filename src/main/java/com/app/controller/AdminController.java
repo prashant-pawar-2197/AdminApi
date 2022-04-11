@@ -65,8 +65,6 @@ public class AdminController {
 		
 		@PostMapping("/theatre/{theatreId}/addScreens")
 		private ResponseEntity<?> addScreensByTheatre(@PathVariable int theatreId){
-			System.out.println("reached add screen");
-			System.out.println(theatreId);
 			theatreService.addAllScreens(theatreId);
 			return new ResponseEntity<>("Added all screens successfully", HttpStatus.OK);
 		}

@@ -54,18 +54,15 @@ public class LoginController {
             // whichever is capable of authenticating the (username&password)token.The authentication 
             //provider will then return the authentication object fully populated.
             authManager.authenticate(authInputToken);
-//            System.out.println("in security");
+
             String token = jwtUtil.generateToken(body.getEmail());
           User user=userRepo.findByEmail(body.getEmail()).get();
           UserResponseDtoWithJwt userWithJwt = new UserResponseDtoWithJwt(user.getFirstName(), user.getLastName(), user.getDob(), user.getGender(), user.getEmail(), user.getPhone(), user.getPassword(), user.getRole(), token);
-//
-//          HttpHeaders responseHeaders = new HttpHeaders();
-//          responseHeaders.set("jwt-token",token);
+
 
           return ResponseEntity.ok()
             .body(userWithJwt);
-//            }else
-//            	throw new com.app.exception.AuthenticationException("Invalid Login Credentials"); 			
+            	 			
         }catch (AuthenticationException authExc){
             throw new RuntimeException("Invalid Login Credentials");
         }

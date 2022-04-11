@@ -30,6 +30,7 @@ public class BookedSeats extends BaseEntity {
 	@JoinColumn(name = "booking_id", nullable=false)
 	private Booking booking;
 	@Enumerated(EnumType.STRING)
+	@Column(length=20)
 	private SeatStatus status;
 	@Override
 	public String toString() {

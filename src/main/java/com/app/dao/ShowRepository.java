@@ -53,7 +53,7 @@ public interface ShowRepository extends JpaRepository<Show, Integer>{
 			+ "join s.screen sc "
 			+ "join s.movie m "
 			+ "join sc.theatre t "
-			+ "where s.showDate = :showDate and t.theatreCity =:city and m.imdbId=:movieId")
+			+ "where s.showDate = :showDate and t.theatreCity =:city and m.imdbId=:movieId and s.showStatus='UPCOMING'")
 	List<ShowTimeDto> getShowsByDate(@Param(value="showDate") LocalDate showDate,@Param(value="city") String city,@Param(value="movieId")  String movieId);
 	//	@Query(value="select * from show_details as shd "
 //			+ "join screen_details scd on shd.screen_id=scd.id "
@@ -65,7 +65,7 @@ public interface ShowRepository extends JpaRepository<Show, Integer>{
 	@Query(value ="select new com.app.dto.OngoingShowDto(s.id,s.endTime,s.startTime,s.showDate, m.title,m.poster, s.showStatus) from Show s "
 			+ "join s.movie m "
 			+ "join s.screen sc "
-			+ "where sc.theatre.id=:theatreId and s.showDate=:showDate")
+			+ "where sc.theatre.id=:theatreId and s.showDate=:showDate and s.showStatus='UPCOMING'")
 	List<OngoingShowDto> getAllShowsByTheatreByDate(@Param(value="theatreId") int theatreId, @Param(value="showDate") LocalDate showDate);
 	
 	@Query(value="select new com.app.dto.BookShowDto(sh.id, t.theatreName, t.theatreCity, md.title, sc.screenNumber, sh.startTime, md.language, md.rated, sh.showDate) "
@@ -78,4 +78,11 @@ public interface ShowRepository extends JpaRepository<Show, Integer>{
 	
 	@Query(value="select movie_id from show_details where id = ?1",nativeQuery = true)
 	String getImdbIdFromShowId(int showID);
+	
+	
+	//updating a running show to completed after the current time and current date
+	@Modifying
+	@Query(value="update show_details set show_status='COMPLETED' where show_status='RUNNING' and end_time<=?1 and show_date=?2", nativeQuery = true)
+	int updateStatus(LocalTime endTime, LocalDate date);
+	
 }

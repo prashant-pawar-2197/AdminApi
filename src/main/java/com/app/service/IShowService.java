@@ -1,9 +1,8 @@
 package com.app.service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
-
-import org.springframework.data.repository.query.Param;
 
 import com.app.dto.BookShowDto;
 import com.app.dto.OngoingShowDto;
@@ -27,5 +26,7 @@ public interface IShowService {
 	public List<OngoingShowDto> getAllShowsByTheatre(int theatreId,LocalDate showDate);
 	public BookShowDto getShowDetailsByShowId(int showId);
 	public String getImdbIdFromShowId(int showId);
+	//to update the show which is running after the current time and date
+	void updateShowStatus(LocalTime endTime, LocalDate date);
 
 }
