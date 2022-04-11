@@ -39,7 +39,7 @@ public class TheatreServiceImpl implements ITheatreService {
 	@Override
 	public void deleteTheatre(int id)  {
 		if(theatreRepo.existsById(id))
-			theatreRepo.deleteById(id);
+			theatreRepo.setTheatreInActive(id);
 		else
 			throw new AdminSqlExcep("Theatre deletion failed, no theatre present with ID: " + id);
 	}
