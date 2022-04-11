@@ -11,6 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserResponseDtoWithJwt {
+	private Integer id;
 	private String firstName;
 	private String lastName;
 	private LocalDate dob;
