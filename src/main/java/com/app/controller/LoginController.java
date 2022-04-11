@@ -57,7 +57,7 @@ public class LoginController {
 
             String token = jwtUtil.generateToken(body.getEmail());
           User user=userRepo.findByEmail(body.getEmail()).get();
-          UserResponseDtoWithJwt userWithJwt = new UserResponseDtoWithJwt(user.getFirstName(), user.getLastName(), user.getDob(), user.getGender(), user.getEmail(), user.getPhone(), user.getPassword(), user.getRole(), token);
+          UserResponseDtoWithJwt userWithJwt = new UserResponseDtoWithJwt(user.getId(), user.getFirstName(), user.getLastName(), user.getDob(), user.getGender(), user.getEmail(), user.getPhone(), user.getPassword(), user.getRole(), token);
 
 
           return ResponseEntity.ok()
@@ -74,7 +74,7 @@ public class LoginController {
         user.setPassword(encodedPass);
         user = userRepo.save(user);
         String token = jwtUtil.generateToken(user.getEmail());
-        UserResponseDtoWithJwt userWithJwt = new UserResponseDtoWithJwt(user.getFirstName(), user.getLastName(), user.getDob(), user.getGender(), user.getEmail(), user.getPhone(), user.getPassword(), user.getRole(), token);
+        UserResponseDtoWithJwt userWithJwt = new UserResponseDtoWithJwt(user.getId(), user.getFirstName(), user.getLastName(), user.getDob(), user.getGender(), user.getEmail(), user.getPhone(), user.getPassword(), user.getRole(), token);
         return ResponseEntity.ok().body(userWithJwt);
 		
 	}
