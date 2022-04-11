@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,17 +22,21 @@ import com.app.service.ITheatreService;
 @RestController
 @RequestMapping("/api/admin")
 @CrossOrigin(origins="http://localhost:3000")
+
 public class AdminController {
 		@Autowired
 		private ITheatreService theatreService;
 		
 		@PostMapping("/addTheatre")
+		@PreAuthorize("hasRole('ROLE_USER')")
 		private ResponseEntity<?> addTheatre(@RequestBody @Valid TheatreAndOwnerDto theatreAndEmail ) {
 			return new ResponseEntity<>(theatreService.addTheatre(theatreAndEmail.getTheatre(), theatreAndEmail.getEmail()), HttpStatus.OK);
 		}
 		
 		@DeleteMapping("/removeTheatre/{id}")
+		//@PreAuthorize("hasRole('ROLE_USER')")
 		private ResponseEntity<?> removeTheatre(@PathVariable int id)  {
+			System.out.println("reached inside endpoint");
 			theatreService.deleteTheatre(id);
 			return new ResponseEntity<>("Delete Successful", HttpStatus.OK);
 		}
@@ -60,8 +65,6 @@ public class AdminController {
 		
 		@PostMapping("/theatre/{theatreId}/addScreens")
 		private ResponseEntity<?> addScreensByTheatre(@PathVariable int theatreId){
-			System.out.println("reached add screen");
-			System.out.println(theatreId);
 			theatreService.addAllScreens(theatreId);
 			return new ResponseEntity<>("Added all screens successfully", HttpStatus.OK);
 		}

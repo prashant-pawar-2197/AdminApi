@@ -2,8 +2,6 @@ package com.app.service;
 
 import java.util.List;
 
-import javax.management.RuntimeErrorException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,7 +38,6 @@ public class ReservedSeatsServiceImpl implements IReservedSeatsService {
 		public List<ReservedSeats> reserveSeats(int showId, List<String> seats, int userId) {
 			User user;
 			Show show;
-			List<ReservedSeats> reservedSeats;
 			if (userRepo.existsById(userId) && showRepo.existsById(showId)){
 				try {
 					try {

@@ -16,11 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.dto.UpdateShowDto;
 import com.app.pojos.Movie;
 import com.app.pojos.Show;
-import com.app.service.IScreenService;
 import com.app.service.IMovieService;
+import com.app.service.IScreenService;
 import com.app.service.IShowService;
-
-import lombok.Delegate;
 
 @RestController
 @CrossOrigin(origins= "http://localhost:3000")
@@ -61,7 +59,6 @@ public class OwnerController {
 	}
 	@PutMapping("/updateShow")
 	public ResponseEntity<?> updateShow(@RequestBody UpdateShowDto show){
-		System.out.println(show);
 		return new ResponseEntity<>(showService.updateShow(show),HttpStatus.OK);
 	}
 	@DeleteMapping("/deleteShow/{id}")

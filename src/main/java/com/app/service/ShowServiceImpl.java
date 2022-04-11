@@ -1,11 +1,14 @@
 package com.app.service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +36,8 @@ public class ShowServiceImpl implements IShowService {
 	TheatreRepository theatreRepo;
 	@Autowired
 	MovieRepository movieRepo;
+	
+	Logger LOGGER = LoggerFactory.getLogger(ShowServiceImpl.class);
 
 	@Override
 	public Show addShow(Show show, int screenId, int theatreId, String movieId) {
@@ -53,7 +58,7 @@ public class ShowServiceImpl implements IShowService {
 			// show time must not match with any show
 
 			// show timings
-			Iterator itr = shows.iterator();
+			Iterator<Show> itr = shows.iterator();
 			while (itr.hasNext()) {
 				Show temp = (Show) itr.next();
 				if ((((show.getStartTime().isAfter(temp.getStartTime()))&&(show.getStartTime().isBefore(temp.getEndTime())))
@@ -147,6 +152,14 @@ public class ShowServiceImpl implements IShowService {
 			throw new RuntimeException("Imdb Id not Found");
 		}
 		return imdbId;
+	}
+	
+	//uupdating the show status using job scheduling
+	@Override
+	public void updateShowStatus(LocalTime endTime, LocalDate date) {
+		// TODO Auto-generated method stub
+		showRepo.updateStatus(endTime, date);
+		LOGGER.info("Show Updated after " + endTime + " and " + date);
 	}
 
 	

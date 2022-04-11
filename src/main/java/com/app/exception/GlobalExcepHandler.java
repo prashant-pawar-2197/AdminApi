@@ -25,12 +25,14 @@ public class GlobalExcepHandler extends ResponseEntityExceptionHandler {
 		Map<String, String> map = ex.getFieldErrors().stream() //Stream<FieldError>
 				.collect(Collectors.toMap(FieldError::getField,FieldError::getDefaultMessage));
 				return ResponseEntity.badRequest().body(map);
+				
 	}
 	
-	@ExceptionHandler(RuntimeException.class)
+	@ExceptionHandler
 	public ResponseEntity<Object> GlobalRuntimeExceptionHandler(RuntimeException ex, HttpHeaders headers, HttpStatus status, WebRequest request){
 		ErrorResponse resp=new ErrorResponse(ex.getMessage(),LocalDateTime.now());
-		return ResponseEntity.internalServerError().body(resp);
+		System.out.println("reached here");
+		return ResponseEntity.badRequest().body(resp);
 	}
 	
 }
