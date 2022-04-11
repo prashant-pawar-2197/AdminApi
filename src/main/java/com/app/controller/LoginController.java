@@ -74,7 +74,8 @@ public class LoginController {
         user.setPassword(encodedPass);
         user = userRepo.save(user);
         String token = jwtUtil.generateToken(user.getEmail());
-        return new ResponseEntity(Collections.singletonMap("jwt-token", token), HttpStatus.OK);
+        UserResponseDtoWithJwt userWithJwt = new UserResponseDtoWithJwt(user.getFirstName(), user.getLastName(), user.getDob(), user.getGender(), user.getEmail(), user.getPhone(), user.getPassword(), user.getRole(), token);
+        return ResponseEntity.ok().body(userWithJwt);
 		
 	}
 }
