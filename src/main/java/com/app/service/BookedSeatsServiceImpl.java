@@ -8,7 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.app.dao.BookedSeatRepository;
 import com.app.dao.ReservedSeatsRepository;
+import com.app.pojos.BookedSeats;
+import com.app.pojos.Booking;
 import com.app.pojos.ReservedSeats;
+import com.app.pojos.SeatStatus;
+import com.app.pojos.User;
 
 @Service
 @Transactional
@@ -17,6 +21,8 @@ public class BookedSeatsServiceImpl implements IBookedSeatsService{
 	BookedSeatRepository bookSeatsRepo;
 	@Autowired
 	ReservedSeatsRepository reserveRepo;
+	@Autowired
+	IBookingService bookingService;
 	
 	@Override
 	public List<String> getBookedSeats(int showId) {
@@ -30,6 +36,22 @@ public class BookedSeatsServiceImpl implements IBookedSeatsService{
 		}catch(RuntimeException e) {
 			throw new RuntimeException("Could not retrive booked seats");
 		}
+	}
+
+	//to book the tickets
+	@Override
+	public Booking bookSeats(User user, double amount) {
+		try {
+			List<ReservedSeats> seats = reserveRepo.getSeatsByUser(user.getId());
+			Booking booking = bookingService.createBooking(user, amount,seats);
+			seats.forEach((s)->bookSeatsRepo.save(new BookedSeats(s.getSeatNumber(),s.getShow(),booking,SeatStatus.BOOKED)));
+			reserveRepo.deleteReservedSeats(user.getId());
+			return booking;
+		}catch(RuntimeException e) {
+			throw new RuntimeException("Booking failed");
+		}
+		
+		
 	}
 	
 }
