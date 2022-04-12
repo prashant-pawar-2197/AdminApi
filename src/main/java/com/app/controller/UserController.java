@@ -114,7 +114,9 @@ public class UserController {
 
 	@PostMapping("/bookAndPay")
 	public ResponseEntity<?> bookAndPay(@RequestBody BookAndPayDto bookAndPay) {
+		System.out.println("hum aa gaye");
 		Booking booking = bookSeatsService.bookSeats(bookAndPay.getUser(), bookAndPay.getAmount());
+		System.out.println(booking);
 		return new ResponseEntity<>(payService.makePayment(bookAndPay, booking), HttpStatus.OK);
 	}
 

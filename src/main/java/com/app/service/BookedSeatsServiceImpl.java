@@ -45,9 +45,11 @@ public class BookedSeatsServiceImpl implements IBookedSeatsService{
 		try {
 			List<ReservedSeats> seats = reserveRepo.getSeatsByUser(user.getId());
 			if (seats.size()==0) {
+				System.out.println("Inside if statement of BookedSeats");
 				throw new RuntimeException("Sorry, your session has expired");
 			}
 			Booking booking = bookingService.createBooking(user, amount,seats);
+			System.out.println("Booking inside bsService "+booking);
 			seats.forEach((s)->bookSeatsRepo.save(new BookedSeats(s.getSeatNumber(),s.getShow(),booking,SeatStatus.BOOKED)));
 			reserveRepo.deleteReservedSeats(user.getId());
 			return booking;

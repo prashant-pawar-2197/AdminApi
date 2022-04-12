@@ -107,7 +107,9 @@ public class ShowServiceImpl implements IShowService {
 		System.out.println("reached here");
 		System.out.println(show);
 		int theatreId = showRepo.getTheatreIdByShowId(show.getShowId());
-		int screenId = showRepo.getScreenIdByScreenNumber(show.getScreenNumber(), theatreId);
+		System.out.println("Theatre Id "+theatreId);
+		Integer screenId = showRepo.getScreenIdByScreenNumber(show.getScreenNumber(), theatreId);
+		System.out.println("Screen Id "+screenId);
 		return showRepo.updateShow(show.getDiamondPrice(), show.getEndTime(), show.getGoldPrice(),
 				show.getShowStatus().toString(), show.getSilverPrice(), show.getStartTime(), show.getShowDate(),
 				screenId, show.getShowId());
