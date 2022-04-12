@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.BookAndPayDto;
 import com.app.service.IBookedSeatsService;
 import com.app.service.IMovieService;
 import com.app.service.IReservedSeatsService;
@@ -95,7 +96,11 @@ public class UserController {
 	public ResponseEntity<?> deleteReserveSeats(@PathVariable int userId){
 		reservedSeatsService.deleteReservedSeatsofUser(userId);
 		return ResponseEntity.ok().build();
-		
+	}
+	
+	@PostMapping("/bookAndPay")
+	public ResponseEntity<?> bookAndPay(@RequestBody BookAndPayDto bookAndPay){
+		return new ResponseEntity<>(bookSeatsService.bookSeats(bookAndPay.getUser(), bookAndPay.getAmount()),HttpStatus.OK);
 	}
 	
 	@GetMapping("/getUserBookingHistory/{userId}")

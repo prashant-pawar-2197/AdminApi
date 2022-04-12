@@ -3,6 +3,8 @@ package com.app.dto;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import javax.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,4 +25,8 @@ public class BookShowDto {
 	private String language;
 	private String rated;
 	private LocalDate date;
+	private int goldPrice;
+	private int diamondPrice;
+	private int silverPrice;
+	
 }
