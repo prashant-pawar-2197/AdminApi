@@ -27,8 +27,7 @@ import com.app.service.ITheatreService;
 public class AdminController {
 		@Autowired
 		private ITheatreService theatreService;
-		@Autowired
-		private IScreenService screenService;
+
 		
 		@PostMapping("/addTheatre")
 		@PreAuthorize("hasRole('ROLE_USER')")
