@@ -39,8 +39,8 @@ public class PaymentServiceImpl implements IPaymentService {
 			}else {
 				Payment payment=paymentRepo.save(new Payment(booking,"CARD",paymentDetails.getAmount(),LocalDateTime.now(),TransactionStatus.SUCCESS));
 				User user = userRepo.findById(booking.getUser().getId()).orElseThrow(()->new RuntimeException("user does not exists"));
-				String cardNo=cardRepo.findByCardNumber(paymentDetails.getCardNumber());
-				if (cardNo.isEmpty()) {
+				System.out.println("reached Here");
+				if (cardRepo.getCardDetails(paymentDetails.getUser().getId())==null) {
 					cardService.setCardDetails(new Card(paymentDetails.getCardNumber(),paymentDetails.getExpiryDate(),paymentDetails.getCardHolderName(),user));
 				}
 				return payment;

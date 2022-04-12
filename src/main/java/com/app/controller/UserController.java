@@ -144,9 +144,11 @@ public class UserController {
 	@GetMapping("/{userId}")
 	public ResponseEntity<?> getUser(@PathVariable int userId){
 		return new ResponseEntity<>(userService.getUser(userId), HttpStatus.OK);
-
+	}
+	
 	@GetMapping("/getCardDetails/{userId}")
 	public ResponseEntity<?> getCardDetails(@PathVariable int userId) {
+		System.out.println("UserId : "+userId);
 		return new ResponseEntity<>(cardService.getCardByUser(userId), HttpStatus.OK);
 	}
 }
