@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.dto.BookAndPayDto;
 import com.app.pojos.Booking;
 import com.app.service.IBookedSeatsService;
+import com.app.service.ICardService;
 import com.app.service.IMovieService;
 import com.app.service.IPaymentService;
 import com.app.service.IReservedSeatsService;
@@ -45,7 +46,8 @@ public class UserController {
 	private IPaymentService payService;
 	@Autowired
 	private IUserService userService;
-	
+	@Autowired
+	private ICardService cardService;
 	@GetMapping("/nowShowing")
 	public ResponseEntity<?> getNowShowing(){
 		return new ResponseEntity<>(movieService.getLatestMovies(), HttpStatus.OK);
@@ -111,5 +113,9 @@ public class UserController {
 	@GetMapping("/getUserBookingHistory/{userId}")
 	public ResponseEntity<?> getUserBookingHistory(@PathVariable int userId){
 		return new ResponseEntity<>(userService.getUserBookingHistory(userId), HttpStatus.OK);
+	}
+	@GetMapping("/getCardDetails/{userId}")
+	public ResponseEntity<?> getCardDetails(@PathVariable int userId){
+		return new ResponseEntity<>(cardService.getCardByUser(userId),HttpStatus.OK);
 	}
 }

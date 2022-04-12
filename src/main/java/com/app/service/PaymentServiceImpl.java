@@ -7,10 +7,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.app.dao.PaymentRepository;
+import com.app.dao.UserRepository;
 import com.app.dto.BookAndPayDto;
 import com.app.pojos.Booking;
+import com.app.pojos.Card;
 import com.app.pojos.Payment;
 import com.app.pojos.TransactionStatus;
+import com.app.pojos.User;
 @Service
 @Transactional
 public class PaymentServiceImpl implements IPaymentService {
@@ -20,14 +23,20 @@ public class PaymentServiceImpl implements IPaymentService {
 	IBookedSeatsService bookedSeatsService;
 	@Autowired
 	IBookingService bookingService;
-	
+	@Autowired
+	ICardService cardService;
+	@Autowired
+	UserRepository userRepo;
 	@Override
 	public Payment makePayment(BookAndPayDto paymentDetails, Booking booking) {
 		try {
 			if (paymentDetails.getUpi()!=null) {
 				return paymentRepo.save(new Payment(booking,"UPI",paymentDetails.getAmount(),LocalDateTime.now(),TransactionStatus.SUCCESS));
 			}else {
-				return paymentRepo.save(new Payment(booking,"CARD",paymentDetails.getAmount(),LocalDateTime.now(),TransactionStatus.SUCCESS));
+				Payment payment=paymentRepo.save(new Payment(booking,"CARD",paymentDetails.getAmount(),LocalDateTime.now(),TransactionStatus.SUCCESS));
+				User user = userRepo.findById(booking.getUser().getId()).orElseThrow(()->new RuntimeException("user does not exists"));
+				cardService.setCardDetails(new Card(paymentDetails.getCardNumber(),paymentDetails.getExpiryDate(),paymentDetails.getCardHolderName(),user));
+				return payment;
 			}
 		
 		}catch(RuntimeException e) {
