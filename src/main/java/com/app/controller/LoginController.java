@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -72,7 +73,11 @@ public class LoginController {
 	public ResponseEntity<?> RegisterUser(@RequestBody @Valid User user){
 		String encodedPass = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPass);
-        user = userRepo.save(user);
+        try {
+			 user=userRepo.save(user);
+		} catch (DataIntegrityViolationException e) {
+			throw new RuntimeException("Email Already Exists");
+		}
         String token = jwtUtil.generateToken(user.getEmail());
         UserResponseDtoWithJwt userWithJwt = new UserResponseDtoWithJwt(user.getId(), user.getFirstName(), user.getLastName(), user.getDob(), user.getGender(), user.getEmail(), user.getPhone(), user.getPassword(), user.getRole(), token);
         return ResponseEntity.ok().body(userWithJwt);
