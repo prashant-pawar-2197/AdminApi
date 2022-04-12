@@ -21,13 +21,13 @@ import com.app.service.IMovieService;
 import com.app.service.IReservedSeatsService;
 import com.app.service.IShowService;
 import com.app.service.ITheatreService;
+import com.app.service.IUserService;
 
 @RestController
 @RequestMapping("/api/user")
 @CrossOrigin(origins="http://localhost:3000")
 public class UserController {
-	
-	
+		
 	@Autowired
 	private IMovieService movieService;
 	@Autowired
@@ -38,6 +38,8 @@ public class UserController {
 	private IBookedSeatsService bookSeatsService;
 	@Autowired
 	private IReservedSeatsService reservedSeatsService;
+	@Autowired
+	private IUserService userService;
 	
 	@GetMapping("/nowShowing")
 	public ResponseEntity<?> getNowShowing(){
@@ -96,4 +98,8 @@ public class UserController {
 		
 	}
 	
+	@GetMapping("/getUserBookingHistory/{userId}")
+	public ResponseEntity<?> getUserBookingHistory(@PathVariable int userId){
+		return new ResponseEntity<>(userService.getUserBookingHistory(userId), HttpStatus.OK);
+	}
 }

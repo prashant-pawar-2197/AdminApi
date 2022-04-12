@@ -62,7 +62,8 @@ public interface ShowRepository extends JpaRepository<Show, Integer>{
 //			+ "where shd.show_date=?1 and td.theatre_city=?2 and shd.movie_id=?3", nativeQuery = true)
 //	List<ShowTimeDto> getShowsByDate(LocalDate showDate,String city, String movieId);
 //	
-	@Query(value ="select new com.app.dto.OngoingShowDto(s.id,s.endTime,s.startTime,s.showDate, m.title,m.poster, s.showStatus) from Show s "
+	@Query(value ="select new com.app.dto.OngoingShowDto(s.id,s.endTime,s.startTime,s.showDate, m.title,m.poster, s.showStatus) "
+			+ "from Show s "
 			+ "join s.movie m "
 			+ "join s.screen sc "
 			+ "where sc.theatre.id=:theatreId and s.showDate=:showDate and s.showStatus='UPCOMING'")
