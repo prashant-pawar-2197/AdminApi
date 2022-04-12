@@ -24,5 +24,11 @@ public class ScreenServiceImpl implements IScreenService {
 		return screenRepo.getScreenNumbersByShowId(showId);
 		 
 	}
+//
+//	@Override
+//	public List<ScreenDto> getAllScreens(int ownerId) {
+//		// TODO Auto-generated method stub
+//		return screenRepo.getAllScreenOfOwner(ownerId);
+//	}
 
 }

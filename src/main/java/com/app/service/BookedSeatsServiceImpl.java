@@ -61,7 +61,7 @@ public class BookedSeatsServiceImpl implements IBookedSeatsService{
 		try {
 			bookSeatsRepo.deleteBookedSeats(bookingId);
 		}catch(RuntimeException e) {
-			throw new RuntimeException("booked seats did not get cancled");
+			throw new RuntimeException("booked seats did not get cancelled");
 		}
 		return null;
 	}

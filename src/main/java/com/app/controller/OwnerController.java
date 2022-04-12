@@ -77,4 +77,9 @@ public class OwnerController {
 	public ResponseEntity<?> getNoOfScreens(@PathVariable int showId){
 		return ResponseEntity.ok(screenService.getScreenNumbersByShowId(showId));
 	}
+	
+	@GetMapping("/getScreenNos/{theatreId}")
+	private ResponseEntity<?> getAllScreenNos(@PathVariable int theatreId){
+		return new ResponseEntity<>(theatreService.getAllScreens(theatreId), HttpStatus.OK);
+	}
 }
