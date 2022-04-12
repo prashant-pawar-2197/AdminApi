@@ -1,5 +1,6 @@
 package com.app.dao;
 
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,4 +24,11 @@ public interface ReservedSeatsRepository extends JpaRepository<ReservedSeats, In
 		@Modifying
 		@Query("delete from ReservedSeats r where user.id=:userId")
 		public void deleteReservedSeats(@Param(value="userId") int userId);
+		
+		//removing the seats after session expires
+		//deleting reserved seats which have crossed 15 mins mark
+	//this is for scheduling a job clearing the reserved seats table
+	@Modifying
+	@Query("delete from ReservedSeats r where r.sessionTime <= :timeNow ")
+	public void deleteReservedSeatsAfterSessionTime(@Param(value="timeNow") LocalTime timeNow);
 }

@@ -162,6 +162,14 @@ public class ShowServiceImpl implements IShowService {
 		LOGGER.info("Show Updated after " + endTime + " and " + date);
 	}
 
+	//updating the show status to running 
+	@Override
+	public void updateShowToRunning(LocalTime timeNow, LocalDate date) {
+		// TODO Auto-generated method stub
+		showRepo.updateUpcomingToRunning(timeNow, date);
+		LOGGER.info("Show Updated to RUNNING " + timeNow + " and " + date);
+	}
+
 	
 
 }

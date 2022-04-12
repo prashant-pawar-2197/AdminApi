@@ -28,5 +28,6 @@ public interface IShowService {
 	public String getImdbIdFromShowId(int showId);
 	//to update the show which is running after the current time and date
 	void updateShowStatus(LocalTime endTime, LocalDate date);
-
+	//to update the show which ihas completed
+	void updateShowToRunning(LocalTime timeNow, LocalDate date);
 }

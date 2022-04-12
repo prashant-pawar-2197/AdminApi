@@ -85,4 +85,9 @@ public interface ShowRepository extends JpaRepository<Show, Integer>{
 	@Query(value="update show_details set show_status='COMPLETED' where show_status='RUNNING' and end_time<=?1 and show_date=?2", nativeQuery = true)
 	int updateStatus(LocalTime endTime, LocalDate date);
 	
+	//updating a upcoming show to running when the time is after the start time of the show and current date
+	@Modifying
+	@Query(value="update show_details set show_status='RUNNING' where show_status='UPCOMING' and start_time<=:timeNow and end_time >=:timeNow and show_date=:dateToday", nativeQuery = true)
+	int updateUpcomingToRunning(@Param(value="timeNow")LocalTime timeNow, @Param(value="dateToday")LocalDate date);
+	
 }
