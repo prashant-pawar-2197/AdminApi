@@ -116,6 +116,7 @@ public class UserController {
 	}
 	@GetMapping("/getCardDetails/{userId}")
 	public ResponseEntity<?> getCardDetails(@PathVariable int userId){
+		System.out.println(cardService.getCardByUser(userId));
 		return new ResponseEntity<>(cardService.getCardByUser(userId),HttpStatus.OK);
 	}
 }
