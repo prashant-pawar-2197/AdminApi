@@ -9,7 +9,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,7 +18,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Address extends BaseEntity{
 	@NotBlank(message="city cannot be blank")
 	@Column(length = 30)
@@ -36,16 +34,21 @@ public class Address extends BaseEntity{
 	@MapsId
 	private User register;
 	
+
+	public Address(@NotBlank(message = "city cannot be blank") String city,
+			@NotBlank(message = "city cannot be blank") String state,
+			@NotBlank(message = "pincode cannot be blank") @Pattern(regexp = "^[1-9][0-9]{5}$", message = "pincode not valid") String pincode,
+			User register) {
+		this.city = city;
+		this.state = state;
+		this.pincode = pincode;
+		this.register = register;
+	}
+
 	
 	@Override
 	public String toString() {
 		return "Address [city=" + city + ", state=" + state + ", pincode=" + pincode + ", register=" + register + "]";
 	}
-	
-	
-	
-	
-	
-	
 	
 }

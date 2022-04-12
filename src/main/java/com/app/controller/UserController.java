@@ -17,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.BookAndPayDto;
+import com.app.dto.UpdateUserDto;
+import com.app.pojos.Address;
 import com.app.service.IBookedSeatsService;
 import com.app.service.IMovieService;
 import com.app.service.IReservedSeatsService;
 import com.app.service.IShowService;
 import com.app.service.ITheatreService;
+import com.app.service.IUserService;
 
 @RestController
 @RequestMapping("/api/user")
@@ -39,6 +42,8 @@ public class UserController {
 	private IBookedSeatsService bookSeatsService;
 	@Autowired
 	private IReservedSeatsService reservedSeatsService;
+	@Autowired
+	private IUserService userService;
 	
 	@GetMapping("/nowShowing")
 	public ResponseEntity<?> getNowShowing(){
@@ -99,6 +104,19 @@ public class UserController {
 	@PostMapping("/bookAndPay")
 	public ResponseEntity<?> bookAndPay(@RequestBody BookAndPayDto bookAndPay){
 		return new ResponseEntity<>(bookSeatsService.bookSeats(bookAndPay.getUser(), bookAndPay.getAmount()),HttpStatus.OK);
+	}
+	
+	@PostMapping("/{userId}/updateUser")
+	public ResponseEntity<?> updateUser(@RequestBody UpdateUserDto updateUser, @PathVariable int userId){
+		userService.updateUserDetails(updateUser.getFirstName(), updateUser.getLastName(), updateUser.getEmail(), updateUser.getPhone(), userId);
+		return new ResponseEntity<>("Updated Successfully", HttpStatus.OK);
+	}
+	
+	@PostMapping("/{userId}/address")
+	public ResponseEntity<?> updateUserAddress(@RequestBody Address address, @PathVariable int userId)
+	{
+		userService.updateUserAddress(address.getCity(), address.getState(), address.getPincode(), userId);
+		return new ResponseEntity<>("Updated Successfully", HttpStatus.OK);
 	}
 	
 }

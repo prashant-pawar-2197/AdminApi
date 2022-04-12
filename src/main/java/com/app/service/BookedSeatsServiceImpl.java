@@ -50,8 +50,6 @@ public class BookedSeatsServiceImpl implements IBookedSeatsService{
 		}catch(RuntimeException e) {
 			throw new RuntimeException("Booking failed");
 		}
-		
-		
 	}
 	
 }
