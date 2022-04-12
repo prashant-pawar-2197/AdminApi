@@ -13,8 +13,8 @@ import com.app.pojos.Show;
 public interface IShowService {
 	
 	public Show addShow(Show show, int screenId, int theatreId, String movieId);
-	//get all movies in particular theatre
-	public List<OngoingShowDto> getAllShows(int theatreId); 
+	//get all movies of particular user
+	public List<OngoingShowDto> getAllShows(int userId); 
 	
 	//to update a show details
 	
@@ -28,5 +28,5 @@ public interface IShowService {
 	public String getImdbIdFromShowId(int showId);
 	//to update the show which is running after the current time and date
 	void updateShowStatus(LocalTime endTime, LocalDate date);
-
+	public Integer getScreenIdByTheatreAndScreenNumber(int theatreId,int screenNumber);
 }

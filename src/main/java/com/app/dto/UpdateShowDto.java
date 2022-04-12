@@ -16,14 +16,25 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateShowDto {
-	private Integer id;
+	private int showId;
 	private LocalTime startTime;
 	private LocalTime endTime;
-	private Integer screenId;
+	private int screenNumber;
 	private ShowStatus showStatus;
 	private int goldPrice;
 	private int diamondPrice;
 	private int silverPrice;
 	private LocalDate showDate;
+	
+	@Override
+	public String toString() {
+		return "UpdateShowDto [showId=" + showId + ", startTime=" + startTime + ", endTime=" + endTime
+				+ ", screenNumber=" + screenNumber + ", showStatus=" + showStatus + ", goldPrice=" + goldPrice
+				+ ", diamondPrice=" + diamondPrice + ", silverPrice=" + silverPrice + ", showDate=" + showDate + "]";
+	}
+	
+	
+	
 
+	
 }

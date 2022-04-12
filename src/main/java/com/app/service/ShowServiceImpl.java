@@ -77,8 +77,8 @@ public class ShowServiceImpl implements IShowService {
 	}
 
 	@Override
-	public List<OngoingShowDto> getAllShows(int theatreId) {
-		List<OngoingShowDto> shows = showRepo.getAllShows(theatreId);
+	public List<OngoingShowDto> getAllShows(int userId) {
+		List<OngoingShowDto> shows = showRepo.getAllShows(userId);
 		if (shows.isEmpty()) {
 			throw new RuntimeException("There are no current ongoing shows to display");
 		}
@@ -106,9 +106,12 @@ public class ShowServiceImpl implements IShowService {
 	
 	public int updateShow(UpdateShowDto show) {
 		System.out.println("reached here");
+		System.out.println(show);
+		int theatreId = showRepo.getTheatreIdByShowId(show.getShowId());
+		int screenId=showRepo.getScreenIdByScreenNumber(show.getScreenNumber(), theatreId);
 		return showRepo.updateShow(show.getDiamondPrice(), show.getEndTime(), show.getGoldPrice(),
 				show.getShowStatus().toString(), show.getSilverPrice(), show.getStartTime(), show.getShowDate(),
-				show.getScreenId(), show.getId());
+				screenId, show.getShowId());
 	}
 
 	@Override
@@ -160,6 +163,12 @@ public class ShowServiceImpl implements IShowService {
 		// TODO Auto-generated method stub
 		showRepo.updateStatus(endTime, date);
 		LOGGER.info("Show Updated after " + endTime + " and " + date);
+	}
+
+	@Override
+	public Integer getScreenIdByTheatreAndScreenNumber(int theatreId, int screenNumber) {
+		return showRepo.getScreenIdByScreenNumber(theatreId, screenNumber);
+		 
 	}
 
 	

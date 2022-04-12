@@ -29,8 +29,9 @@ public interface ShowRepository extends JpaRepository<Show, Integer>{
 	@Query(value ="select new com.app.dto.OngoingShowDto(s.id,s.endTime,s.startTime,s.showDate,m.title,m.poster,s.showStatus) from Show s "
 			+ "join s.movie m "
 			+ "join s.screen sc "
-			+ "where sc.theatre.id=:theatreId")
-	List<OngoingShowDto> getAllShows(@Param(value="theatreId") int theatreId);
+			+ "join sc.theatre t "
+			+ "where t.user.id=:userId")
+	List<OngoingShowDto> getAllShows(@Param(value="userId") int userId);
 	
 
 	
@@ -85,4 +86,14 @@ public interface ShowRepository extends JpaRepository<Show, Integer>{
 	@Query(value="update show_details set show_status='COMPLETED' where show_status='RUNNING' and end_time<=?1 and show_date=?2", nativeQuery = true)
 	int updateStatus(LocalTime endTime, LocalDate date);
 	
+	@Query("select sc.id from Screen sc "
+			+ "where sc.theatre.id=:theatreId and sc.screenNumber=:screenNumber")
+	int getScreenIdByScreenNumber(@Param(value="theatreId") int theatreId,@Param(value="screenNumber") int screenNumber);
+	
+	//method to return theatre by show
+	@Query("select t.id from Show s "
+			+ "join s.screen sc "
+			+ "join sc.theatre t "
+			+ "where s.id=:showId")
+	int getTheatreIdByShowId(@Param(value="showId") int showId);
 }
