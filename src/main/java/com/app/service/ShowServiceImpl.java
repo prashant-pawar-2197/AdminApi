@@ -61,14 +61,13 @@ public class ShowServiceImpl implements IShowService {
 			Iterator<Show> itr = shows.iterator();
 			while (itr.hasNext()) {
 				Show temp = (Show) itr.next();
-				if ((((show.getStartTime().isAfter(temp.getStartTime()))
-						&& (show.getStartTime().isBefore(temp.getEndTime())))
-						|| ((show.getEndTime().isAfter(temp.getStartTime()))
-								&& (show.getEndTime().isBefore(temp.getEndTime()))))
-						&& temp.getShowDate().isEqual(show.getShowDate())) {
+				 if ((((show.getStartTime().isAfter(temp.getStartTime())) && (show.getStartTime().isBefore(temp.getEndTime())))
+	                        || ((show.getEndTime().isAfter(temp.getStartTime())) && (show.getEndTime().isBefore(temp.getEndTime()))
+	                                || (show.getStartTime().compareTo(temp.getStartTime())== 0 && show.getEndTime().compareTo(temp.getEndTime()) == 0)))
+	                        && temp.getShowDate().isEqual(show.getShowDate())) {
 
-					throw new RuntimeException("Show already exist at this timing");
-				}
+	                    throw new RuntimeException("Show already exist at this timing");
+	                }
 
 			}
 			return showRepo.save(show);
