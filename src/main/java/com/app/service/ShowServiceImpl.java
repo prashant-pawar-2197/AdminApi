@@ -36,7 +36,7 @@ public class ShowServiceImpl implements IShowService {
 	TheatreRepository theatreRepo;
 	@Autowired
 	MovieRepository movieRepo;
-	
+
 	Logger LOGGER = LoggerFactory.getLogger(ShowServiceImpl.class);
 
 	@Override
@@ -51,7 +51,7 @@ public class ShowServiceImpl implements IShowService {
 			Theatre theatre = theatreRepo.findById(theatreId)
 					.orElseThrow(() -> new RuntimeException("Theatre not found"));
 			theatre.addScreen(screen);
-			Movie movie = movieRepo.findById(movieId).orElseThrow(()->new RuntimeException("Movie not found"));
+			Movie movie = movieRepo.findById(movieId).orElseThrow(() -> new RuntimeException("Movie not found"));
 			show.setMovie(movie);
 			// see if the timing are free on that screen
 			List<Show> shows = showRepo.findByScreen(screen);
@@ -61,8 +61,10 @@ public class ShowServiceImpl implements IShowService {
 			Iterator<Show> itr = shows.iterator();
 			while (itr.hasNext()) {
 				Show temp = (Show) itr.next();
-				if ((((show.getStartTime().isAfter(temp.getStartTime()))&&(show.getStartTime().isBefore(temp.getEndTime())))
-						||((show.getEndTime().isAfter(temp.getStartTime()))&&(show.getEndTime().isBefore(temp.getEndTime()))))
+				if ((((show.getStartTime().isAfter(temp.getStartTime()))
+						&& (show.getStartTime().isBefore(temp.getEndTime())))
+						|| ((show.getEndTime().isAfter(temp.getStartTime()))
+								&& (show.getEndTime().isBefore(temp.getEndTime()))))
 						&& temp.getShowDate().isEqual(show.getShowDate())) {
 
 					throw new RuntimeException("Show already exist at this timing");
@@ -73,7 +75,7 @@ public class ShowServiceImpl implements IShowService {
 		} else {
 			throw new RuntimeException("Show did not mount");
 		}
-//		
+		//
 	}
 
 	@Override
@@ -88,27 +90,24 @@ public class ShowServiceImpl implements IShowService {
 	@Override
 	public List<Show> getShowByCity(String city, String movieId) {
 		List<Show> shows = showRepo.getShowsByCity(city, movieId);
-		if(shows.isEmpty()) {
+		if (shows.isEmpty()) {
 			throw new RuntimeException("No shows found");
 		}
-		
+
 		return shows;
 	}
 
-	
-	
-	
 	@Override
 	public UpdateShowDto getShowbyId(int showId) {
 		return showRepo.getShowById(showId);
-		
+
 	}
-	
+
 	public int updateShow(UpdateShowDto show) {
 		System.out.println("reached here");
 		System.out.println(show);
 		int theatreId = showRepo.getTheatreIdByShowId(show.getShowId());
-		int screenId=showRepo.getScreenIdByScreenNumber(show.getScreenNumber(), theatreId);
+		int screenId = showRepo.getScreenIdByScreenNumber(show.getScreenNumber(), theatreId);
 		return showRepo.updateShow(show.getDiamondPrice(), show.getEndTime(), show.getGoldPrice(),
 				show.getShowStatus().toString(), show.getSilverPrice(), show.getStartTime(), show.getShowDate(),
 				screenId, show.getShowId());
@@ -118,46 +117,45 @@ public class ShowServiceImpl implements IShowService {
 	public void deleteShow(int id) {
 		if (showRepo.existsById(id)) {
 			showRepo.deleteById(id);
-		}else {
+		} else {
 			throw new RuntimeException("Deletion of show failed");
 		}
 	}
 
 	@Override
 	public List<ShowTimeDto> getShowsByDate(LocalDate date, String city, String movieId) {
-		
+
 		return showRepo.getShowsByDate(date, city, movieId);
-		
+
 	}
 
 	@Override
 	public List<OngoingShowDto> getAllShowsByTheatre(int theatreId, LocalDate showDate) {
-		List<OngoingShowDto> shows= showRepo.getAllShowsByTheatreByDate(theatreId,showDate);
-		
-		
+		List<OngoingShowDto> shows = showRepo.getAllShowsByTheatreByDate(theatreId, showDate);
+
 		return shows;
 	}
 
 	@Override
 	public BookShowDto getShowDetailsByShowId(int showId) {
 		BookShowDto showDetails = showRepo.getShowDetailsByShowId(showId);
-		
-		if(showDetails==null) {
+
+		if (showDetails == null) {
 			throw new RuntimeException("No shows found");
 		}
-		
+
 		return showDetails;
 	}
-	
+
 	public String getImdbIdFromShowId(int showId) {
 		String imdbId = showRepo.getImdbIdFromShowId(showId);
-		if(imdbId==null) {
+		if (imdbId == null) {
 			throw new RuntimeException("Imdb Id not Found");
 		}
 		return imdbId;
 	}
-	
-	//uupdating the show status using job scheduling
+
+	// uupdating the show status using job scheduling
 	@Override
 	public void updateShowStatus(LocalTime endTime, LocalDate date) {
 		// TODO Auto-generated method stub
@@ -165,12 +163,18 @@ public class ShowServiceImpl implements IShowService {
 		LOGGER.info("Show Updated after " + endTime + " and " + date);
 	}
 
+	// updating the show status to running
+	@Override
+	public void updateShowToRunning(LocalTime timeNow, LocalDate date) {
+		// TODO Auto-generated method stub
+		showRepo.updateUpcomingToRunning(timeNow, date);
+		LOGGER.info("Show Updated to RUNNING " + timeNow + " and " + date);
+	}
+
 	@Override
 	public Integer getScreenIdByTheatreAndScreenNumber(int theatreId, int screenNumber) {
 		return showRepo.getScreenIdByScreenNumber(theatreId, screenNumber);
-		 
-	}
 
-	
+	}
 
 }

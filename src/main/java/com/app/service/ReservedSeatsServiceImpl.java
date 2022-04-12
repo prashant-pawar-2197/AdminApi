@@ -1,7 +1,10 @@
 package com.app.service;
 
+import java.time.LocalTime;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +26,7 @@ public class ReservedSeatsServiceImpl implements IReservedSeatsService {
 	private UserRepository userRepo;
 	@Autowired
 	private ShowRepository showRepo;
+	Logger LOGGER = LoggerFactory.getLogger(ReservedSeatsServiceImpl.class);
 	
 	//a method to fetch reserved seats
 		@Override
@@ -46,7 +50,7 @@ public class ReservedSeatsServiceImpl implements IReservedSeatsService {
 					}catch(RuntimeException e) {
 						throw new RuntimeException("Either user or show does not exists");
 					}
-					seats.forEach((s)->reserveRepo.save(new ReservedSeats(s,show,user,SeatStatus.RESERVED)));
+					seats.forEach((s)->reserveRepo.save(new ReservedSeats(s,show,user,SeatStatus.RESERVED, LocalTime.now().plusMinutes(15))));
 				}catch(RuntimeException e) {
 					throw new RuntimeException("seats are reserved");
 				}	
@@ -69,5 +73,12 @@ public class ReservedSeatsServiceImpl implements IReservedSeatsService {
 				throw new RuntimeException("could not delete reserved seats");
 			}
 			
+		}
+
+		@Override
+		public void deleteReservedSeatsAfterSessionExpires(LocalTime timeNow) {
+			// TODO Auto-generated method stub
+			reserveRepo.deleteReservedSeatsAfterSessionTime(timeNow);
+			LOGGER.info("Deleting reserved seats after sesson expiry");
 		}
 }
