@@ -29,7 +29,13 @@ public class Card extends BaseEntity{
     @Column(name="card_holder_name", length = 50)
     @NotBlank(message = "card expiry date is mandatory")
     private String cardHolderName;
-    @OneToOne
+    
+    @Override
+	public String toString() {
+		return "Card [cardNumber=" + cardNumber + ", cardExpiryDate=" + cardExpiryDate + ", cardHolderName="
+				+ cardHolderName + ", user=" + user + "]";
+	}
+	@OneToOne
     @JoinColumn(name="user_id",nullable=false)
     User user;
 
