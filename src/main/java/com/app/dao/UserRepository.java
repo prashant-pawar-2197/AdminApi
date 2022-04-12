@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import com.app.dto.SeatNumberForHistoryDto;
+import com.app.dto.UpdateUserDto;
 import com.app.dto.UserBookingHistoryDto;
 import com.app.pojos.User;
 
@@ -31,4 +32,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Query(value = "select new com.app.dto.SeatNumberForHistoryDto(bs.seatNumber,bs.booking.id) from BookedSeats bs join bs.booking b join b.user u where u.id=?1")
 	List<SeatNumberForHistoryDto> getAllSeatsNos(int userId, int bookingId);
+	
+	//----------------query for getting user details for updating user profile
+	@Query(value="select new com.app.dto.UpdateUserDto(u.email, u.firstName, u.lastName, u.phone) from User u where u.id=?1")
+	UpdateUserDto getUserDetails(int userId);
 }

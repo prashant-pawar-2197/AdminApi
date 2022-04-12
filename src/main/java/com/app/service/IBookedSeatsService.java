@@ -12,4 +12,8 @@ public interface IBookedSeatsService {
 	//==>to book the seats that are reserved by the user
 	Booking bookSeats(User user,double amount);
 	
+	//In case of failed payment delete the booked seats
+	String deleteBookedSeats(int bookingId);
+	
+	
 }

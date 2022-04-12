@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.app.dao.AddressRepository;
 import com.app.dao.UserRepository;
 import com.app.pojos.Address;
+import com.app.dto.UpdateUserDto;
 import com.app.dto.UserBookingHistoryDto;
 import com.app.pojos.User;
 
@@ -46,7 +47,7 @@ public class UserServiceImpl implements IUserService {
 		if (userRepo.existsById(userId)) {
 			userRepo.updateUserDetails(firstName, lastName, email, phone, userId);
 		} else
-			throw new RuntimeException("User does not exist");
+			throw new RuntimeException("Email Already exists");
 	}
 
 	// ----------------------method to update the user
@@ -66,6 +67,21 @@ public class UserServiceImpl implements IUserService {
 	public List<UserBookingHistoryDto> getUserBookingHistory(int userId) {
 		System.out.println(userRepo.getAllSeatsNos(userId, 2));
 		return userRepo.getUserBookingHistory(userId);
+	}
+
+	
+	//get the address of the user
+	@Override
+	public Address getAddressOfUser(int userId) {
+		// TODO Auto-generated method stub
+		return addressRepo.findByRegisterId(userId).orElseThrow(() -> new RuntimeException("User not found"));
+	}
+
+	//-----------------------------get user details for updating------------------------------------
+	@Override
+	public UpdateUserDto getUser(int userId) {
+		// TODO Auto-generated method stub
+		return userRepo.getUserDetails(userId);
 	}
 
 }
