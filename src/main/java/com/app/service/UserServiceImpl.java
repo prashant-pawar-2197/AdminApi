@@ -60,6 +60,7 @@ public class UserServiceImpl implements IUserService {
 			User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 			addressRepo.save(new Address(city, state, pincode, user));
 		}
+	}
 
 	@Override
 	public List<UserBookingHistoryDto> getUserBookingHistory(int userId) {
