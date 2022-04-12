@@ -69,7 +69,7 @@ public class TheatreServiceImpl implements ITheatreService {
 	
 	@Override
 	public List<ScreenDto> getAllScreens(int theatreId) {
-	return theatreRepo.getAllScreenNumbers(theatreId);
+		return theatreRepo.getAllScreenNumbers(theatreId);
 	}
 
 	@Override

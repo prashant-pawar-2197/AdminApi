@@ -24,5 +24,17 @@ public class BookingServiceImpl implements IBookingService {
 		return bookingRepo.save(new Booking(user,LocalDate.now(),LocalTime.now(),amount,seats.get(0).getShow(),seats.size()));
 		
 	}
+	
+	@Override
+	public int deleteBooking(int bookingId) {
+		try {
+			if (bookingRepo.existsById(bookingId)) {
+				bookingRepo.deleteById(bookingId);
+			}
+			return bookingId;
+		}catch(RuntimeException e) {
+			throw new RuntimeException("Booking does not exists");
+		}
+	}
 
 }
