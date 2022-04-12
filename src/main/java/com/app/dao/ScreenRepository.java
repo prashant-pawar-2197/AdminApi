@@ -19,4 +19,5 @@ public interface ScreenRepository extends JpaRepository<Screen, Integer>{
 					+ " join s.screen sc"
 					+ " where s.id=:showId)")
 			NumberOfScreensDto getScreenNumbersByShowId(@Param(value = "showId") int showId);
+			
 }

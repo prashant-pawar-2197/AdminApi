@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.app.dao.BookedSeatRepository;
+import com.app.dao.BookingRepository;
 import com.app.dao.ReservedSeatsRepository;
 import com.app.pojos.BookedSeats;
 import com.app.pojos.Booking;
@@ -43,6 +44,9 @@ public class BookedSeatsServiceImpl implements IBookedSeatsService{
 	public Booking bookSeats(User user, double amount) {
 		try {
 			List<ReservedSeats> seats = reserveRepo.getSeatsByUser(user.getId());
+			if (seats.size()==0) {
+				throw new RuntimeException("Sorry, your session has expired");
+			}
 			Booking booking = bookingService.createBooking(user, amount,seats);
 			seats.forEach((s)->bookSeatsRepo.save(new BookedSeats(s.getSeatNumber(),s.getShow(),booking,SeatStatus.BOOKED)));
 			reserveRepo.deleteReservedSeats(user.getId());
@@ -53,5 +57,17 @@ public class BookedSeatsServiceImpl implements IBookedSeatsService{
 		
 		
 	}
+
+	@Override
+	public String deleteBookedSeats(int bookingId) {
+		try {
+			bookSeatsRepo.deleteBookedSeats(bookingId);
+		}catch(RuntimeException e) {
+			throw new RuntimeException("booked seats did not get cancled");
+		}
+		return null;
+	}
+
+	
 	
 }

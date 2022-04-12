@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.BookAndPayDto;
+import com.app.pojos.Booking;
 import com.app.service.IBookedSeatsService;
 import com.app.service.IMovieService;
+import com.app.service.IPaymentService;
 import com.app.service.IReservedSeatsService;
 import com.app.service.IShowService;
 import com.app.service.ITheatreService;
@@ -39,7 +41,8 @@ public class UserController {
 	private IBookedSeatsService bookSeatsService;
 	@Autowired
 	private IReservedSeatsService reservedSeatsService;
-	
+	@Autowired
+	private IPaymentService payService;
 	@GetMapping("/nowShowing")
 	public ResponseEntity<?> getNowShowing(){
 		return new ResponseEntity<>(movieService.getLatestMovies(), HttpStatus.OK);
@@ -98,7 +101,8 @@ public class UserController {
 	
 	@PostMapping("/bookAndPay")
 	public ResponseEntity<?> bookAndPay(@RequestBody BookAndPayDto bookAndPay){
-		return new ResponseEntity<>(bookSeatsService.bookSeats(bookAndPay.getUser(), bookAndPay.getAmount()),HttpStatus.OK);
+		Booking booking = bookSeatsService.bookSeats(bookAndPay.getUser(), bookAndPay.getAmount());
+		return new ResponseEntity<>(payService.makePayment(bookAndPay, booking),HttpStatus.OK);
 	}
 	
 }
