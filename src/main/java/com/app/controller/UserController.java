@@ -28,10 +28,9 @@ import com.app.service.IUserService;
 
 @RestController
 @RequestMapping("/api/user")
-@CrossOrigin(origins="http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
-	
-	
+
 	@Autowired
 	private IMovieService movieService;
 	@Autowired
@@ -44,79 +43,89 @@ public class UserController {
 	private IReservedSeatsService reservedSeatsService;
 	@Autowired
 	private IUserService userService;
-	
+
 	@GetMapping("/nowShowing")
-	public ResponseEntity<?> getNowShowing(){
+	public ResponseEntity<?> getNowShowing() {
 		return new ResponseEntity<>(movieService.getLatestMovies(), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/getMovie/{imdbId}")
-	public ResponseEntity<?> getMovie(@PathVariable String imdbId){
+	public ResponseEntity<?> getMovie(@PathVariable String imdbId) {
 		return new ResponseEntity<>(movieService.getMovie(imdbId), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/getShowsByCity/{city}/{movieId}")
-	public ResponseEntity<?> getShowsByCity(@PathVariable String city, @PathVariable String movieId){
+	public ResponseEntity<?> getShowsByCity(@PathVariable String city, @PathVariable String movieId) {
 		System.out.println("In Get Mapping");
-		return new ResponseEntity<>(showService.getShowByCity(city, movieId),HttpStatus.OK);
+		return new ResponseEntity<>(showService.getShowByCity(city, movieId), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/location/{location}/movie/{movieId}/getShowsByDate/{date}")
-		public ResponseEntity<?> getShowsByDate(@PathVariable String location, @PathVariable String movieId,@PathVariable String date) {
-		return new ResponseEntity<>(showService.getShowsByDate(LocalDate.parse(date,DateTimeFormatter.ofPattern("yyyy-MM-dd")), location, movieId),HttpStatus.OK);
+	public ResponseEntity<?> getShowsByDate(@PathVariable String location, @PathVariable String movieId,
+			@PathVariable String date) {
+		return new ResponseEntity<>(showService.getShowsByDate(
+				LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd")), location, movieId), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/theatre/{theatreId}/date/{date}")
-		public ResponseEntity<?> getAllShowsByTheatre(@PathVariable int theatreId,@PathVariable String date){
-		return new ResponseEntity<>(showService.getAllShowsByTheatre(theatreId,LocalDate.parse(date,DateTimeFormatter.ofPattern("yyyy-MM-dd"))),HttpStatus.OK);
+	public ResponseEntity<?> getAllShowsByTheatre(@PathVariable int theatreId, @PathVariable String date) {
+		return new ResponseEntity<>(showService.getAllShowsByTheatre(theatreId,
+				LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"))), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/theatre/{theatreId}")
-		public ResponseEntity<?> getTheatreDetailsById(@PathVariable int theatreId){
-		return new ResponseEntity<>(theatreService.getTheatreById(theatreId),HttpStatus.OK);
+	public ResponseEntity<?> getTheatreDetailsById(@PathVariable int theatreId) {
+		return new ResponseEntity<>(theatreService.getTheatreById(theatreId), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/getBookedSeats/{showId}")
-	public ResponseEntity<?> getBookedSeats(@PathVariable int showId){
+	public ResponseEntity<?> getBookedSeats(@PathVariable int showId) {
 		return new ResponseEntity<>(bookSeatsService.getBookedSeats(showId), HttpStatus.OK);
 	}
+
 	@GetMapping("/booking/ticket/{showId}")
-	public ResponseEntity<?> getBookingTicketDetails(@PathVariable int showId){
-		return new ResponseEntity<>(showService.getShowDetailsByShowId(showId),HttpStatus.OK);
+	public ResponseEntity<?> getBookingTicketDetails(@PathVariable int showId) {
+		return new ResponseEntity<>(showService.getShowDetailsByShowId(showId), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/imdbId/{showId}")
-	public ResponseEntity<?> getImdbIdFromShowID(@PathVariable int showId){
-		return new ResponseEntity<>(showService.getImdbIdFromShowId(showId),HttpStatus.OK);
+	public ResponseEntity<?> getImdbIdFromShowID(@PathVariable int showId) {
+		return new ResponseEntity<>(showService.getImdbIdFromShowId(showId), HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/{userId}/reservedSeats/{showId}")
-	public ResponseEntity<?> getReservedSeats(@RequestBody List<String> checkedSeats,@PathVariable int userId,@PathVariable int showId){
-		return new ResponseEntity<>(reservedSeatsService.reserveSeats(showId, checkedSeats, userId),HttpStatus.OK);
+	public ResponseEntity<?> getReservedSeats(@RequestBody List<String> checkedSeats, @PathVariable int userId,
+			@PathVariable int showId) {
+		return new ResponseEntity<>(reservedSeatsService.reserveSeats(showId, checkedSeats, userId), HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/{userId}/deleteReservedSeats")
-	public ResponseEntity<?> deleteReserveSeats(@PathVariable int userId){
+	public ResponseEntity<?> deleteReserveSeats(@PathVariable int userId) {
 		reservedSeatsService.deleteReservedSeatsofUser(userId);
 		return ResponseEntity.ok().build();
 	}
-	
+
 	@PostMapping("/bookAndPay")
-	public ResponseEntity<?> bookAndPay(@RequestBody BookAndPayDto bookAndPay){
-		return new ResponseEntity<>(bookSeatsService.bookSeats(bookAndPay.getUser(), bookAndPay.getAmount()),HttpStatus.OK);
+	public ResponseEntity<?> bookAndPay(@RequestBody BookAndPayDto bookAndPay) {
+		return new ResponseEntity<>(bookSeatsService.bookSeats(bookAndPay.getUser(), bookAndPay.getAmount()),
+				HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/{userId}/updateUser")
-	public ResponseEntity<?> updateUser(@RequestBody UpdateUserDto updateUser, @PathVariable int userId){
-		userService.updateUserDetails(updateUser.getFirstName(), updateUser.getLastName(), updateUser.getEmail(), updateUser.getPhone(), userId);
+	public ResponseEntity<?> updateUser(@RequestBody UpdateUserDto updateUser, @PathVariable int userId) {
+		userService.updateUserDetails(updateUser.getFirstName(), updateUser.getLastName(), updateUser.getEmail(),
+				updateUser.getPhone(), userId);
 		return new ResponseEntity<>("Updated Successfully", HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/{userId}/address")
-	public ResponseEntity<?> updateUserAddress(@RequestBody Address address, @PathVariable int userId)
-	{
+	public ResponseEntity<?> updateUserAddress(@RequestBody Address address, @PathVariable int userId) {
 		userService.updateUserAddress(address.getCity(), address.getState(), address.getPincode(), userId);
 		return new ResponseEntity<>("Updated Successfully", HttpStatus.OK);
 	}
-	
+
+	@GetMapping("/getUserBookingHistory/{userId}")
+	public ResponseEntity<?> getUserBookingHistory(@PathVariable int userId) {
+		return new ResponseEntity<>(userService.getUserBookingHistory(userId), HttpStatus.OK);
+	}
 }
