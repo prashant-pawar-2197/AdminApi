@@ -19,6 +19,7 @@ import com.app.pojos.Show;
 import com.app.service.IMovieService;
 import com.app.service.IScreenService;
 import com.app.service.IShowService;
+import com.app.service.ITheatreService;
 
 @RestController
 @CrossOrigin(origins= "http://localhost:3000")
@@ -31,6 +32,8 @@ public class OwnerController {
 	IMovieService movieService;	
 	@Autowired
 	IScreenService screenService;
+	@Autowired
+	ITheatreService theatreService;
 	
 	@PostMapping("/theatre/{theatreId}/movie/{movieId}/screen/{screenId}/addShow")
 	public ResponseEntity<?> addShow(@RequestBody Show show, @PathVariable int screenId, @PathVariable int theatreId, @PathVariable String movieId){
@@ -66,7 +69,10 @@ public class OwnerController {
 		showService.deleteShow(id);
 		return new ResponseEntity<>("Show Deleted Successfully",HttpStatus.OK);
 	}
-	
+	@GetMapping("/getTheatreByUserId/{userId}")
+	private ResponseEntity<?> getTheatreByUserId(@PathVariable int userId){
+		return new ResponseEntity<>(theatreService.getTheatreByUserId(userId),HttpStatus.OK);
+	}
 	@GetMapping("/getNoOfScreens/{showId}")
 	public ResponseEntity<?> getNoOfScreens(@PathVariable int showId){
 		return ResponseEntity.ok(screenService.getScreenNumbersByShowId(showId));

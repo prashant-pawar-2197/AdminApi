@@ -39,7 +39,7 @@ public class TheatreServiceImpl implements ITheatreService {
 	@Override
 	public void deleteTheatre(int id)  {
 		if(theatreRepo.existsById(id))
-			theatreRepo.deleteById(id);
+			theatreRepo.setTheatreInActive(id);
 		else
 			throw new AdminSqlExcep("Theatre deletion failed, no theatre present with ID: " + id);
 	}
@@ -65,6 +65,8 @@ public class TheatreServiceImpl implements ITheatreService {
 		return theatreRepo.findAllTheatresByCity(city);
 	}
 
+	
+	
 	@Override
 	public List<ScreenDto> getAllScreens(int theatreId) {
 	return theatreRepo.getAllScreenNumbers(theatreId);
@@ -87,7 +89,9 @@ public class TheatreServiceImpl implements ITheatreService {
 	}
 	
 	
-	
+	public List<Theatre> getTheatreByUserId(int userId){
+		return theatreRepo.getTheatreByUserId(userId);
+	}
 	
 	
 

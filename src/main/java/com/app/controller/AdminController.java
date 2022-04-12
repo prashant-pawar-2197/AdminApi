@@ -34,7 +34,6 @@ public class AdminController {
 		}
 		
 		@DeleteMapping("/removeTheatre/{id}")
-		//@PreAuthorize("hasRole('ROLE_USER')")
 		private ResponseEntity<?> removeTheatre(@PathVariable int id)  {
 			System.out.println("reached inside endpoint");
 			theatreService.deleteTheatre(id);
@@ -57,6 +56,7 @@ public class AdminController {
 			return new ResponseEntity<>(theatreService.getAllTheatresByCity(city), HttpStatus.OK);
 		}
 		
+
 		
 		@GetMapping("/getScreenNos/{theatreId}")
 		private ResponseEntity<?> getAllScreenNos(@PathVariable int theatreId){
