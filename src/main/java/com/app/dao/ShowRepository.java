@@ -68,7 +68,7 @@ public interface ShowRepository extends JpaRepository<Show, Integer>{
 			+ "where sc.theatre.id=:theatreId and s.showDate=:showDate and s.showStatus='UPCOMING'")
 	List<OngoingShowDto> getAllShowsByTheatreByDate(@Param(value="theatreId") int theatreId, @Param(value="showDate") LocalDate showDate);
 	
-	@Query(value="select new com.app.dto.BookShowDto(sh.id, t.theatreName, t.theatreCity, md.title, sc.screenNumber, sh.startTime, md.language, md.rated, sh.showDate) "
+	@Query(value="select new com.app.dto.BookShowDto(sh.id, t.theatreName, t.theatreCity, md.title, sc.screenNumber, sh.startTime, md.language, md.rated, sh.showDate,sh.goldPrice,sh.diamondPrice,sh.silverPrice) "
 			+ "from Show sh "
 			+ "join sh.movie md "
 			+ "join sh.screen sc "
