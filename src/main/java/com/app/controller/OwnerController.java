@@ -41,9 +41,9 @@ public class OwnerController {
 		
 	}
 	
-	@GetMapping("/theatre/{theatreId}/ongoingShow")
-	public ResponseEntity<?> ongoingShow(@PathVariable int theatreId){
-		return ResponseEntity.ok(showService.getAllShows(theatreId));
+	@GetMapping("/ongoingShow/{userId}")
+	public ResponseEntity<?> ongoingShow(@PathVariable int userId){
+		return ResponseEntity.ok(showService.getAllShows(userId));
 	}
 	
 	@PostMapping("/updateScreen/{status}/{id}")
