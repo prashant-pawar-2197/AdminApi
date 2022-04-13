@@ -20,4 +20,12 @@ public interface ScreenRepository extends JpaRepository<Screen, Integer>{
 					+ " where s.id=:showId)")
 			NumberOfScreensDto getScreenNumbersByShowId(@Param(value = "showId") int showId);
 			
+			
+			//select s.screen_number, s.screen_status from screen_details s where 
+			//s.theatre_id=(select t.id from theatre_details t where t.user_id=34);
+//			@Query(value = "select new com.app.dto.ScreenDto(s.id, s.screenNumber, s.screenStatus) from Screen s where s.theatre.id=(select t.id from Theatre t where t.user.id=?1)")
+//			@Query(value="select new com.app.dto.ScreenDto(s.id, s.screenNumber, s.screenStatus) from Screen s "
+//					+ "join s.theatre t where t.user.id=?1")
+//			List<ScreenDto> getAllScreenOfOwner(int ownerId);
+			
 }

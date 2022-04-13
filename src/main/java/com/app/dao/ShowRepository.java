@@ -101,8 +101,8 @@ public interface ShowRepository extends JpaRepository<Show, Integer> {
 
 	@Query("select sc.id from Screen sc "
 			+ "where sc.theatre.id=:theatreId and sc.screenNumber=:screenNumber")
-	int getScreenIdByScreenNumber(@Param(value = "theatreId") int theatreId,
-			@Param(value = "screenNumber") int screenNumber);
+	Integer getScreenIdByScreenNumber(@Param(value = "screenNumber") int screenNumber,
+			@Param(value = "theatreId") int theatreId);
 
 	// method to return theatre by show
 	@Query("select t.id from Show s "

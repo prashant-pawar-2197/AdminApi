@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.app.dao.CardRepository;
 import com.app.dao.PaymentRepository;
 import com.app.dao.UserRepository;
 import com.app.dto.BookAndPayDto;
@@ -27,6 +28,9 @@ public class PaymentServiceImpl implements IPaymentService {
 	ICardService cardService;
 	@Autowired
 	UserRepository userRepo;
+	@Autowired
+	CardRepository cardRepo;
+	
 	@Override
 	public Payment makePayment(BookAndPayDto paymentDetails, Booking booking) {
 		try {
@@ -35,7 +39,10 @@ public class PaymentServiceImpl implements IPaymentService {
 			}else {
 				Payment payment=paymentRepo.save(new Payment(booking,"CARD",paymentDetails.getAmount(),LocalDateTime.now(),TransactionStatus.SUCCESS));
 				User user = userRepo.findById(booking.getUser().getId()).orElseThrow(()->new RuntimeException("user does not exists"));
-				cardService.setCardDetails(new Card(paymentDetails.getCardNumber(),paymentDetails.getExpiryDate(),paymentDetails.getCardHolderName(),user));
+				System.out.println("reached Here");
+				if (cardRepo.getCardDetails(paymentDetails.getUser().getId())==null) {
+					cardService.setCardDetails(new Card(paymentDetails.getCardNumber(),paymentDetails.getExpiryDate(),paymentDetails.getCardHolderName(),user));
+				}
 				return payment;
 			}
 		

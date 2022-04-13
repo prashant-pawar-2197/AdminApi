@@ -114,7 +114,9 @@ public class UserController {
 
 	@PostMapping("/bookAndPay")
 	public ResponseEntity<?> bookAndPay(@RequestBody BookAndPayDto bookAndPay) {
+		System.out.println("hum aa gaye");
 		Booking booking = bookSeatsService.bookSeats(bookAndPay.getUser(), bookAndPay.getAmount());
+		System.out.println(booking);
 		return new ResponseEntity<>(payService.makePayment(bookAndPay, booking), HttpStatus.OK);
 	}
 
@@ -145,8 +147,10 @@ public class UserController {
 	public ResponseEntity<?> getUser(@PathVariable int userId){
 		return new ResponseEntity<>(userService.getUser(userId), HttpStatus.OK);
 	}
+	
 	@GetMapping("/getCardDetails/{userId}")
 	public ResponseEntity<?> getCardDetails(@PathVariable int userId) {
+		System.out.println("UserId : "+userId);
 		return new ResponseEntity<>(cardService.getCardByUser(userId), HttpStatus.OK);
 	}
 }

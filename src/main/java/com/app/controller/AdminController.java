@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.TheatreAndOwnerDto;
 import com.app.pojos.Screen;
+import com.app.service.IScreenService;
 import com.app.service.ITheatreService;
 
 @RestController
@@ -26,6 +27,8 @@ import com.app.service.ITheatreService;
 public class AdminController {
 		@Autowired
 		private ITheatreService theatreService;
+		@Autowired
+		private IScreenService screenService;
 		
 		@PostMapping("/addTheatre")
 		@PreAuthorize("hasRole('ROLE_USER')")
@@ -55,13 +58,7 @@ public class AdminController {
 		private ResponseEntity<?> getAllTheatreCities(@PathVariable String city){
 			return new ResponseEntity<>(theatreService.getAllTheatresByCity(city), HttpStatus.OK);
 		}
-		
-
-		
-		@GetMapping("/getScreenNos/{theatreId}")
-		private ResponseEntity<?> getAllScreenNos(@PathVariable int theatreId){
-			return new ResponseEntity<>(theatreService.getAllScreens(theatreId), HttpStatus.OK);
-		}
+	
 		
 		@PostMapping("/theatre/{theatreId}/addScreens")
 		private ResponseEntity<?> addScreensByTheatre(@PathVariable int theatreId){

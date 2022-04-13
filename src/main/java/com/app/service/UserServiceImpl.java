@@ -1,6 +1,5 @@
 package com.app.service;
 
-import java.util.Iterator;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -12,9 +11,9 @@ import org.springframework.stereotype.Service;
 import com.app.dao.AddressRepository;
 import com.app.dao.UserRepository;
 import com.app.dto.SeatNumberForHistoryDto;
-import com.app.pojos.Address;
 import com.app.dto.UpdateUserDto;
 import com.app.dto.UserBookingHistoryDto;
+import com.app.pojos.Address;
 import com.app.pojos.User;
 
 @Service

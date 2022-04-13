@@ -14,4 +14,5 @@ public class ScreenDto {
 	private String screenStatus;
 	private int screenNumber;
 	private int theatre_id;
+	
 }
