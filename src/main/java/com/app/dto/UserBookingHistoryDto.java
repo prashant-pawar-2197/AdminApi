@@ -19,12 +19,14 @@ public class UserBookingHistoryDto {
 			private LocalDate bookingDate;
 			private int bookingId;
 			private Double bookingAmount;
+			private String theatreName;
+			private String theatreCity;
 			private int noOfSeats;
 			private String paymentMode;
 			private List<String> seatNos;
 			
 			public UserBookingHistoryDto(String movieName, String poster, LocalDate showDate, LocalTime showStartTime,
-					LocalTime bookingTime, LocalDate bookingDate, int bookingId, Double bookingAmount, int noOfSeats,
+					LocalTime bookingTime, LocalDate bookingDate, int bookingId, Double bookingAmount,String theatreName,String theatreCity, int noOfSeats,
 					String paymentMode) {
 				super();
 				this.movieName = movieName;
@@ -35,6 +37,8 @@ public class UserBookingHistoryDto {
 				this.bookingDate = bookingDate;
 				this.bookingId = bookingId;
 				this.bookingAmount = bookingAmount;
+				this.theatreName = theatreName;
+				this.theatreCity = theatreCity;
 				this.noOfSeats = noOfSeats;
 				this.paymentMode = paymentMode;
 				this.seatNos = new ArrayList<String>();
@@ -82,6 +86,14 @@ public class UserBookingHistoryDto {
 
 			public void setSeatNos(String seatNumber) {
 				this.seatNos.add(seatNumber);
+			}
+
+			public void setTheatreName(String theatreName) {
+				this.theatreName = theatreName;
+			}
+
+			public void setTheatreCity(String theatreCity) {
+				this.theatreCity = theatreCity;
 			}
 
 			
