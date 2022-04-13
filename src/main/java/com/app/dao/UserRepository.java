@@ -24,9 +24,11 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	void updateUserDetails(String firstName, String lastName, String email, String phone, int userId);
 
 	
-	@Query(value="select new com.app.dto.UserBookingHistoryDto(mv.title,mv.poster,sh.showDate,sh.startTime,b.bookingTime,b.bookingDate,b.id,b.amount,b.numberOfSeats,p.paymentMode)"		+ " from Payment p"
+	@Query(value="select new com.app.dto.UserBookingHistoryDto(mv.title,mv.poster,sh.showDate,sh.startTime,b.bookingTime,b.bookingDate,b.id,b.amount,t.theatreName,t.theatreCity,b.numberOfSeats,p.paymentMode)"		+ " from Payment p"
 			+ " join p.booking b"
 			+ " join b.show sh"
+			+ " join sh.screen sc"
+			+ " join sc.theatre t"
 			+ " join sh.movie mv"
 			+ " where b.user.id= ?1")
 	List<UserBookingHistoryDto> getUserBookingHistory(int userId);
