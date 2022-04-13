@@ -22,6 +22,7 @@ public class MovieServiceImpl implements IMovieService {
 		if(movieRepo.existsById(movie.getImdbId())) {
 			Movie existingMovie = movieRepo.findById(movie.getImdbId()).get();
 			existingMovie.setDateAdded(movie.getDateAdded());
+			existingMovie.setRatings(movie.getRatings());
 			return movieRepo.save(existingMovie);
 		}
 		return movieRepo.save(movie);
