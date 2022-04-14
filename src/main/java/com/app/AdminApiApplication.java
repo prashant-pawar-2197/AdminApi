@@ -32,7 +32,7 @@ public class AdminApiApplication {
 
 	@Scheduled(fixedDelayString = "PT1M")
 	public void updateShowStatusToRunning() throws InterruptedException {
-		showService.updateShowToRunning(LocalTime.now(), LocalDate.now());
+		
 	}
 
 	@Scheduled(fixedDelayString = "PT3M")
