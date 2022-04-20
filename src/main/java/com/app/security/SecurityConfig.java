@@ -23,12 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 @ControllerAdvice
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Autowired 
-//    private UserRepository userRepo;
     @Autowired 
     private JWTFilter filter;
-//    @Autowired 
-//    private MyUserDetailsService uds;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
